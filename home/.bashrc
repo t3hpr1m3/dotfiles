@@ -53,3 +53,8 @@ if [[ -f ~/.keychain/$HOSTNAME-sh ]]; then
 	keychain ~/.ssh/id_dsa
 	. ~/.keychain/$HOSTNAME-sh
 fi
+
+# Homeshick?
+if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
+	source ~/.homesick/repos/homeshick/homeshick.sh
+fi
