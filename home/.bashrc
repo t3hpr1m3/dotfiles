@@ -1,4 +1,3 @@
-
 ## COLORS ##
 if which dircolors >/dev/null; then
 	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
@@ -31,10 +30,6 @@ alias reboot='sudo /sbin/reboot'
 alias es='gvim src/*.cpp include/*.h'
 alias annotate='annotate -p before'
 alias top='sudo top'
-
-if [ "$(which macvim)" = "" ]; then
-	aliams vim="macvim"
-fi
 
 # Change the window title of X terminals 
 case $TERM in
