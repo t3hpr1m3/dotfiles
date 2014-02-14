@@ -130,7 +130,8 @@ if [ $HAVE_BASH -eq 1 ]; then
 if [ ! \$(command -v "homeshick") ]; then
 	source ${TARGET_DIR}/.homesick/repos/homeshick/homeshick.sh
 fi
-homeshick clone t3hpr1m3/dotfiles
+homeshick clone t3hpr1m3/dotfiles --quiet
+homeshick link dotfiles
 EOF
 	else
 		printf " = REPO already exists\n"
