@@ -133,4 +133,4 @@ fi
 git clone https://github.com/gmarik/vundle.git ${TARGET_DIR}/.vim/bundle/vundle > /dev/null 2>&1
 
 printf "\nAll systems go.  Now, crank it:\n"
-printf "    bash <(curl https://raw.github.com/t3hpr1m3/dotfiles/master/scripts/crankit)\n\n"
+printf "    bash <(curl https://raw.github.com/t3hpr1m3/dotfiles/master/utils/crankit)\n\n"
