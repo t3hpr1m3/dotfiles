@@ -1,5 +1,27 @@
 #!/bin/sh
 
+#
+# Dirty shell script to (hopefully) allow cross-platform clipboard sharing
+# between tmux and the rest of the world.
+#
+# Instead of OS checks, this script looks for various executables known to
+# provide clipboard functionality to the shell.  It will also run
+# reattach-to-user-namespace if it exists, so OSX should be happy.
+#
+# Relavent lines in .tmux.conf:
+#
+#  copy:
+#    bind-key -t vi-copy y copy-selection
+#    bind C-y run "tmux show-buffer | tmux-copypaste copy"
+#
+#  paste:
+#    bind p paste-buffer
+#    bind C-p run "tmux set-buffer \"$(tmux-copypaste paste)\"; tmux paste-buffer"
+#
+# Version 1.8 of tmux has copy-pipe, which makes all of this much cleaner, but
+# Ubuntu 12.04 (precise) still ships with ~1.6.
+#
+
 script="${0##*/}"
 
 fatal() {
