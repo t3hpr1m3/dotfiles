@@ -121,27 +121,7 @@ else
 fi
 
 #
-# Homeshick requires bash, so only try and install our homesick if bash is available
-#
-if [ $HAVE_BASH -eq 1 ]; then
-	if [ ! -d ${TARGET_DIR}/.homesick/repos/homesick ]; then
-		printf " - CLONING AND SYMLINKING\n"
-		bash <<EOF
-if [ ! \$(command -v "homeshick") ]; then
-	source ${TARGET_DIR}/.homesick/repos/homeshick/homeshick.sh
-fi
-homeshick clone t3hpr1m3/dotfiles --quiet
-homeshick link dotfiles
-EOF
-	else
-		printf " = REPO already exists\n"
-	fi
-else
-	printf " ! BASH unavailable.  Skipping REPO check\n"
-fi
-
-#
-# Setup vim for our pleasure
+# Prepare vim for enlightenment
 #
 printf " - CONFIGURING VIM\n"
 if [ ! -d "${TARGET_DIR}/.vim/bundle" ]; then
@@ -151,4 +131,6 @@ if [ ! -d "${TARGET_DIR}/.vim/autoload" ]; then
   	mkdir -p ${TARGET_DIR}/.vim/autoload
 fi
 git clone https://github.com/gmarik/vundle.git ${TARGET_DIR}/.vim/bundle/vundle > /dev/null 2>&1
-vim +BundleInstall +qall
+
+printf "\nAll systems go.  Now, crank it:\n"
+printf "    bash <(curl https://raw.github.com/t3hpr1m3/dotfiles/master/scripts/crankit)\n\n"

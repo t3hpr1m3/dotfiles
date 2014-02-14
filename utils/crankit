@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ ! $(command -v "homeshick") ]; then
+	source ~/.homesick/repos/homeshick/homeshick.sh
+fi
+
+homeshick clone t3hpr1m3/dotfiles --quiet
+homeshick link dotfiles
+
+source .bash_profile
+
+#
+# Setup vim for our pleasure
+#
+vim +BundleInstall +qall
+
+
