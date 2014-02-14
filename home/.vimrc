@@ -49,7 +49,8 @@ Bundle 'altercation/vim-colors-solarized'
 set background=dark
 silent! colorscheme solarized
 
-"set statusline=%<%1*===\ %5*%f%1*%(\ ===\ %4*%h%1*%)%(\ ===\ %4*%m%1*%)%(\ ===\ %4*%r%1*%)\ ===%====\ %2*%b(0x%B)%1*\ ===\ %3*%l,%c%V%1*\ ===\ %5*%P%1*\ ===%0* laststatus=2
+" Automatically open NERDTree if no files are specified
+autocmd vimenter * if !argc() | NERDTree | endif
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
