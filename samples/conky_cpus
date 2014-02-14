@@ -1,0 +1,5 @@
+TEXT
+ ${voffset 5}${color2}CPU0${goto 86}CPU1${goto 163}CPU2${goto 240}CPU3
+ ${color2}${cpugraph cpu0 32,72 000000 e4e3e3} ${cpugraph cpu1 32,72 000000 e4e3e3} ${cpugraph cpu2 32,72 000000 e4e3e3} ${cpugraph cpu3 32,72 000000 e4e3e3}
+ ${voffset 5}${color2}CPU4${goto 86}CPU5${goto 163}CPU6${goto 240}CPU7
+ ${cpugraph cpu4 32,72 000000 e4e3e3} ${cpugraph cpu5 32,72 000000 e4e3e3} ${cpugraph cpu6 32,72 000000 e4e3e3} ${cpugraph cpu7 32,72 000000 e4e3e3}
