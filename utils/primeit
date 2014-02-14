@@ -1,0 +1,153 @@
+#!/bin/sh
+
+#
+# Test to see if a given executable/script is available.
+#
+check_program() {
+	prog=$1
+	padding=$((25 - ${#prog}))
+	printf ">>>>>  $prog " && printf ".%.0s" $(seq 1 $padding)
+	if [ ! $(command -v $prog) ]; then
+		printf " %-39s<<<<<\n" "No"; return 1
+	else
+		printf " %-39s<<<<<\n" "Yes"; return 0
+	fi
+}
+
+
+ask_continue() {
+	while [ -z "$yn" ]; do
+		printf "\n%s Continue? (Y/n) " "$1"
+		read yn
+		case "$yn" in 
+			"Y"|"y"|"" ) printf "\n"; break;;
+			"N"|"n" ) exit 1;;
+			* ) printf "Invalid selection\n\n"
+		esac
+	done
+}
+
+x11_forwarding() {
+	available="unknown"
+	if [ $(command -v grep) ] && [ -r /etc/ssh/sshd_config ]; then
+		x11=$(grep X11Forwarding /etc/ssh/sshd_config | awk '{print tolower($2);}')
+		[ "$x11" = "yes" ] && available="yes" || available="no"
+	fi
+	printf "$available"
+}
+
+X11_FORWARDING=$(x11_forwarding)
+TARGET_DIR="${HOME}"
+
+HAVE_GIT=0
+HAVE_VIM=0
+HAVE_TMUX=0
+HAVE_BASH=0
+HAVE_CLIPPER=0
+
+printf "\n////'.+shdmNMMMMMNmdhyo/-'////\n"
+printf "yMMM+oMMMMMMdhhhhdNMMMMMd+MMMy\n"
+printf ":MMMmoshmNMMNy:/yNMMNNhysmMMM:\n"
+printf " mmyyhdhssoymNMMNdsosydmdhydm                      M A K I N G   E N T R Y\n"
+printf " oMdhdyyyhM:/ssss/:MdsyyyddMo \n"
+printf " .dNmdhysyNh-MMMM-yNdysyhdmd. \n"
+printf "  ssymmmmddm'mMMm'mdydmmmyss                       This won't take long...\n"
+printf "  hMh'...... dMMh ......'hMh  \n"
+printf "  sMMy/.  .+'dMMh:o.  ./hMMs  \n"
+printf "  +MMMMNo/NM.dMMh/MN:oNMMMM+  \n"
+printf "  :MMMMMs+MM.dMMh/MM+yMMMMM:  \n"
+printf "  .MMMMMs+MM/shhsoMM+yMMMMM'  \n"
+printf "   MMMMMs+MMhhhhhdMM+yMMMMN                    (...but it might tickle a bit)\n"
+printf "   -+hNMs+MdoNNNN/dM+yMNh+-   \n"
+printf "       --:m/NNMMMm-m::-       \n\n"
+
+printf "##############################################################################\n"
+printf ">>>>>                             System Specs                           <<<<<\n"
+printf ">>>>>                                                                    <<<<<\n"
+printf ">>>>> Platform:                   $(printf "%-39s" $(uname))<<<<<\n"
+printf ">>>>> Architecture:               $(printf "%-39s" $(uname -p))<<<<<\n"
+printf ">>>>> Kernel Version:             $(printf "%-39s" $(uname -r))<<<<<\n"
+printf ">>>>> X11 forwarding:             $(printf "%-39s" "$X11_FORWARDING")<<<<<\n"
+
+printf "##############################################################################\n"
+printf ">>>>>                     Checking for required software                 <<<<<\n"
+printf ">>>>>                                                                    <<<<<\n"
+
+check_program 'git' && HAVE_GIT=1
+check_program 'vim' && HAVE_VIM=1
+check_program 'tmux' && HAVE_TMUX=1
+check_program 'bash' && HAVE_BASH=1
+check_program 'xclip' && HAVE_CLIPPER=1
+check_program 'xsel' && HAVE_CLIPPER=1
+check_program 'pbcopy' && HAVE_CLIPPER=1
+
+printf ">>>>>                                                                    <<<<<\n"
+printf "##############################################################################\n"
+
+#
+# Check for git
+#
+[ $HAVE_GIT -eq 0 ] && printf "\nInstall git, nub.\n" && exit 1
+
+#
+# Check for vim
+#
+[ $HAVE_VIM -eq 0 ] && printf "\nInstall vim and try again, jabroni\n" && exit 1
+
+#
+# Check for tmux
+#
+[ $HAVE_TMUX -eq 0 ] && ask_continue "tmux not found."
+
+#
+# Check for a clipboard selector
+#
+[ $HAVE_CLIPPER -eq 0 ] && ask_continue "No clipboard program found."
+
+printf ">>>>>\n"
+printf ">>>>>  Everything checks out.\n"
+printf ">>>>>\n"
+printf ">>>>>  Priming now!\n"
+printf ">>>>>\n\n"
+
+#
+# Check/install the homeshick repo
+#
+if [ -d "${TARGET_DIR}/.homesick/repos/homeshick" ]; then
+	printf " = HOMESHICK already installed\n"
+else
+	printf " - DOWNLOADING HOMESHICK\n"
+	git clone git://github.com/andsens/homeshick.git ${TARGET_DIR}/.homesick/repos/homeshick
+fi
+
+#
+# Homeshick requires bash, so only try and install our homesick if bash is available
+#
+if [ $HAVE_BASH -eq 1 ]; then
+	if [ ! -d ${TARGET_DIR}/.homesick/repos/homesick ]; then
+		printf " - CLONING AND SYMLINKING\n"
+		bash <<EOF
+if [ ! \$(command -v "homeshick") ]; then
+	source ${TARGET_DIR}/.homesick/repos/homeshick/homeshick.sh
+fi
+homeshick clone t3hpr1m3/dotfiles
+EOF
+	else
+		printf " = REPO already exists\n"
+	fi
+else
+	printf " ! BASH unavailable.  Skipping REPO check\n"
+fi
+
+#
+# Setup vim for our pleasure
+#
+printf " - CONFIGURING VIM\n"
+if [ ! -d "${TARGET_DIR}/.vim/bundle" ]; then
+  	mkdir -p ${TARGET_DIR}/.vim/bundle
+fi
+if [ ! -d "${TARGET_DIR}/.vim/autoload" ]; then
+  	mkdir -p ${TARGET_DIR}/.vim/autoload
+fi
+git clone https://github.com/gmarik/vundle.git ${TARGET_DIR}/.vim/bundle/vundle > /dev/null 2>&1
+vim +BundleInstall +qall
