@@ -55,10 +55,10 @@ autocmd vimenter * if !argc() | NERDTree | endif
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
 noremap <leader>q :Bclose<CR>
-nmap <C-left> <C-W><Left>
-nmap <C-right> <C-W><Right>
-nmap <C-up> <C-W><Up>
-nmap <C-down> <C-W><Down>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 nmap <C-F> :filetype detect<CR>
 
 
