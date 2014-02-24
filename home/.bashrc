@@ -58,3 +58,25 @@ fi
 if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
 	source ~/.homesick/repos/homeshick/homeshick.sh
 fi
+
+# TMUX environment updating
+function tmux {
+	local tmux=$(type -fp tmux)
+	case "$1" in
+		update-environment)
+			local v
+			while read v; do
+				if [[ $v == -* ]]; then
+					unset ${v/#-/}
+				else
+					v=${v/=/=\"}
+					v=${v/%/\"}
+					eval export $v
+				fi
+			done < <(tmux show-environment)
+			;;
+		*)
+			$tmux "$@"
+			;;
+	esac
+}
