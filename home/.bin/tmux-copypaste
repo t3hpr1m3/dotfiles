@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 # Dirty shell script to (hopefully) allow cross-platform clipboard sharing
@@ -59,7 +59,7 @@ case "$1" in
 esac
 
 if [ $(command -v reattach-to-user-namespace) ]; then
-	exec reattach-to-user-namespace "$cmd"
+	exec reattach-to-user-namespace "$cmd 2>&1"
 else
-	eval "$cmd"
+	eval "$cmd 2>&1"
 fi
