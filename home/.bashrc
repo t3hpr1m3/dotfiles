@@ -31,6 +31,19 @@ alias es='gvim src/*.cpp include/*.h'
 alias annotate='annotate -p before'
 alias top='sudo top'
 
+# Terminal capabilities
+local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
+if [ -n "$local256" ]; then
+	case "$TERM" in
+		'xterm' | 'xfce4-terminal') TERM=xterm-256color;;
+		'screen') TERM=screen-256color;;
+		'Eterm') TERM=Eterm-256color;;
+	esac
+
+	export TERM
+fi
+unset local256
+
 # Change the window title of X terminals 
 case $TERM in
 	xterm*|rxvt*|Eterm)
