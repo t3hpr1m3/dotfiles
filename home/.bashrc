@@ -93,3 +93,7 @@ function tmux {
 			;;
 	esac
 }
+
+function cds {
+	du -ckshx .[!.]* * 2>/dev/null | sort -h
+}
