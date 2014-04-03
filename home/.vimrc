@@ -22,7 +22,6 @@ set cindent
 set cinoptions=+0
 
 syntax on
-filetype plugin indent on
 set number
 set showmatch
 set matchtime=5
@@ -39,12 +38,18 @@ let g:mapleader = ","
 " Giving Vundle a try
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-bundler'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vadimr/bclose.vim'
-Bundle 'minibufexpl.vim'
-Bundle 'altercation/vim-colors-solarized'
+
+Plugin 'gmarik/vundle'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vadimr/bclose.vim'
+Plugin 'minibufexpl.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'airblade/vim-gitgutter'
+
+filetype plugin indent on
 
 set background=dark
 silent! colorscheme solarized
