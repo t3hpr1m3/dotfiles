@@ -31,6 +31,19 @@ alias es='gvim src/*.cpp include/*.h'
 alias annotate='annotate -p before'
 alias top='sudo top'
 
+# Terminal capabilities
+local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
+if [ -n "$local256" ]; then
+	case "$TERM" in
+		'xterm' | 'xfce4-terminal') TERM=xterm-256color;;
+		'screen') TERM=screen-256color;;
+		'Eterm') TERM=Eterm-256color;;
+	esac
+
+	export TERM
+fi
+unset local256
+
 # Change the window title of X terminals 
 case $TERM in
 	xterm*|rxvt*|Eterm)
@@ -59,16 +72,28 @@ if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
 	source ~/.homesick/repos/homeshick/homeshick.sh
 fi
 
-tmup(){
-	echo -n "Updating to latest tmux environment...";
-	export IFS=",";
-	for line in $(tmux showenv -t $(tmux display -p "#S") | tr "\n" ","); do
-		if [[ $line == -* ]]; then
-			unset $(echo $line | cut -c2-);
-		else
-			export $line;
-		fi
-	done
-	unset IFS
-	echo "Done";
+# TMUX environment updating
+function tmux {
+	local tmux=$(type -fp tmux)
+	case "$1" in
+		update-environment)
+			local v
+			while read v; do
+				if [[ $v == -* ]]; then
+					unset ${v/#-/}
+				else
+					v=${v/=/=\"}
+					v=${v/%/\"}
+					eval export $v
+				fi
+			done < <(tmux show-environment)
+			;;
+		*)
+			$tmux "$@"
+			;;
+	esac
+}
+
+function cds {
+	du -ckshx .[!.]* * 2>/dev/null | sort -h
 }
