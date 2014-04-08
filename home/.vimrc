@@ -40,6 +40,7 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Plugin 'gmarik/vundle'
+Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-fugitive'
@@ -53,14 +54,21 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neosnippet.vim'
 
+" neocomplcache
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
 let g:neocomplcache_dictionary_filetype_lists = {
 	\ 'default' : ''
 		\ }
+
+" CTRL-P
+let g:ctrlp_map = '<leader>,'
+let g:ctrlp_command = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+	\ 'dir': 'vendor\|\.git'
+	\ }
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
