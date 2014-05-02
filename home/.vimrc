@@ -1,5 +1,4 @@
-" General configuration
-set nocompatible
+" General configuration set nocompatible
 set modeline
 set modelines=5
 set hlsearch
@@ -53,6 +52,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neosnippet.vim'
+Plugin 'thoughtbot/vim-rspec'
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
@@ -69,6 +69,13 @@ let g:ctrlp_command = 'CtrlP'
 let g:ctrlp_custom_ignore = {
 	\ 'dir': 'vendor\|\.git'
 	\ }
+
+" vim-rspec
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+" let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
