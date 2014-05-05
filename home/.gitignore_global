@@ -1,0 +1,12 @@
+# Swap Files #
+##############
+*.swp
+*.swo
+*.DS_Store
+vendor/bundle
+coverage/*
+.rspec
+Vagrantfile
+Berksfile
+Berksfile.lock
+.vagrant
