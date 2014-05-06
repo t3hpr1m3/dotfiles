@@ -31,6 +31,8 @@ set ruler
 set mouse=a
 set title
 
+set statusline=[%n]\ %f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%{fugitive#statusline()}%=%c,%l/%L\ %P
+
 let mapleader = ","
 let g:mapleader = ","
 
