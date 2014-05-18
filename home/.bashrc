@@ -72,8 +72,15 @@ if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
 	source ~/.homesick/repos/homeshick/homeshick.sh
 fi
 
+# TMUX DISPLAY setting
+if [ $(command -v tmux) ]; then
+	for name in `tmux ls -F '#{session_name}'`; do
+		tmux setenv -g -t $name DISPLAY $DISPLAY
+	done
+fi
+
 # TMUX environment updating
-function tmux {
+function tmux123 {
 	local tmux=$(type -fp tmux)
 	case "$1" in
 		update-environment)
