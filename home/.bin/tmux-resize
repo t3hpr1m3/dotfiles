@@ -1,0 +1,49 @@
+#!/bin/bash
+ses=$1
+id=$2
+height=50
+width=33
+
+paneWidths=$(tmux list-panes -t $ses:$win | awk '{print $2}' | cut -c 2- | cut -f 1 -d'x')
+paneHeights=$(tmux list-panes -t $ses:$win | awk '{print $2}' | cut -c 2- | cut -f 2 -d'x' | cut -f 1 -d']')
+
+currentWidth=$(echo $paneWidths | awk "{ print \$($id+1) }")
+currentHeight=$(echo $paneHeights | awk "{ print \$($id+1) }")
+
+resizeNumW=$(expr $currentWidth - $width)
+resizeNumH=$(expr $currentHeight - $height)
+
+if [ ${resizeNumW} -ge 0 ]; then
+ dirw="R"
+else
+ dirw="L"
+ resizeNumW="$((-${resizeNumW}))"
+fi
+
+if [ ${resizeNumH} -ge 0 ]; then
+ dirh="D"
+else
+ dirh="U"
+ resizeNumH="$((-${resizeNumH}))"
+fi
+
+## DEBUG
+echo ws: $paneWidths
+echo hs: $paneHeights
+
+echo cw: $currentWidth
+echo ch: $currentHeight
+
+echo rw: $resizeNumW
+echo rh: $resizeNumH
+
+echo dw: $dirw
+echo dh: $dirh
+
+if [ ${resizeNumW} -ne 0 ]; then
+ tmux resize-pane -t $ses:$win.$id -$dirw $resizeNumW
+fi
+
+#if [ ${resizeNumH} -ne 0 ]; then
+# tmux resize-pane -t $ses:$win.$id -$dirh $resizeNumH
+#fi

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+script="${0##*/}"
+
+fatal() {
+		printf "$script"': %s\n' "$*"
+		exit 1
+}
+
+cmd=""
+if [ $(command -v pbcopy) ]; then
+	cmd="pbcopy"
+elif [ $(command -v xclip) ]; then
+	cmd="xclip -selection clipboard -i"
+elif [ $(command -v xsel) ]; then
+	cmd="xsel -ib"
+else
+	fatal "No clipboard utility found."
+fi
+
+if [ $(command -v reattach-to-user-namespace) ]; then
+	exec reattach-to-user-namespace "echo $1 | $cmd 2>&1"
+else
+	eval "echo $1 | $cmd 2>&1"
+fi
