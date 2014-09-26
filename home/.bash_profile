@@ -1,10 +1,12 @@
 ## EXPORTS ##
 CVS_RSH=ssh
 export CVS_RSH
-PATH=$PATH:~/bin
-export PATH
-export EDITOR
+export PATH=$PATH:~/bin
+if [ -d /opt/chefdk/bin ]; then
+	export PATH=/opt/chefdk/bin:$PATH
+fi
 EDITOR=$(which vim)
+export EDITOR
 XSESSION="Xfce4"
 export XSESSION
 export DISTCC_DIR=/var/tmp/portage/.distcc/
