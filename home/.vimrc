@@ -53,7 +53,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'Shougo/neocomplcache.vim'
-Plugin 'Shougo/neosnippet.vim'
+" Plugin 'Shougo/neosnippet.vim'
 Plugin 'thoughtbot/vim-rspec'
 
 " neocomplcache
@@ -96,7 +96,7 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-nmap <C-F> :filetype detect<CR>
+" nmap <C-F> :filetype detect<CR>
 
 
 augroup myfiletypes
