@@ -54,7 +54,10 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'Shougo/neocomplcache.vim'
 " Plugin 'Shougo/neosnippet.vim'
-Plugin 'thoughtbot/vim-rspec'
+" Plugin 'thoughtbot/vim-rspec'
+Plugin 'geekjuice/vim-spec'
+" Plugin 'geekjuice/vim-mocha'
+Plugin 'pangloss/vim-javascript'
 
 " neocomplcache
 let g:neocomplcache_enable_at_startup = 1
@@ -72,12 +75,13 @@ let g:ctrlp_custom_ignore = {
 	\ 'dir': 'vendor\|\.git'
 	\ }
 
-" vim-rspec
+" vim-spec
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
 " let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+let g:mocha_js_command = '!$(npm bin)/mocha {spec}'
 
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -101,6 +105,7 @@ noremap <Right> <NOP>
 
 augroup myfiletypes
 	autocmd!
-	autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+	autocmd FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
 	autocmd FileType scss set sw=4 sts=4 ts=4 noet
+	autocmd FileType javascript set ai ts=2 sw=2 sts=2 et
 augroup END
