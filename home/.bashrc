@@ -62,10 +62,21 @@ function parse_git_branch {
 export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h: \[\033[1;33m\]\$(/usr/bin/tty | sed -e 's:/dev/::')\[\033[0m\] \[\033[1;32m\]\$(parse_git_branch)\[\033[0m\] -> \[\033[0m\]"
 
 # for SSH stuff
-if [[ -f ~/.keychain/$HOSTNAME-sh ]]; then
-	keychain ~/.ssh/id_dsa
-	. ~/.keychain/$HOSTNAME-sh
+if [ $(command -v keychain) ]; then
+	KEYS=()
+	if [[ -f ~/.ssh/id_dsa ]]; then
+		KEYS+=('id_dsa')
+	fi
+	if [[ -f ~/.ssh/id_rsa ]]; then
+		KEYS+=('id_rsa')
+	fi
+	eval $(keychain --eval --agents ssh --inherit any ${KEYS[@]})
 fi
+
+#if [[ -f ~/.keychain/$HOSTNAME-sh ]]; then
+#	keychain ~/.ssh/id_dsa
+#	. ~/.keychain/$HOSTNAME-sh
+#fi
 
 # Homeshick?
 if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
@@ -81,28 +92,6 @@ if [ -n "$DISPLAY" ]; then
 		done
 	fi
 fi
-
-# TMUX environment updating
-function tmux123 {
-	local tmux=$(type -fp tmux)
-	case "$1" in
-		update-environment)
-			local v
-			while read v; do
-				if [[ $v == -* ]]; then
-					unset ${v/#-/}
-				else
-					v=${v/=/=\"}
-					v=${v/%/\"}
-					eval export $v
-				fi
-			done < <(tmux show-environment)
-			;;
-		*)
-			$tmux "$@"
-			;;
-	esac
-}
 
 function cds {
 	du -ckshx .[!.]* * 2>/dev/null | sort -h

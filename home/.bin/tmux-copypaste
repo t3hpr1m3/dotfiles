@@ -30,14 +30,17 @@ fatal() {
 }
 
 cmd=""
+args=""
 case "$1" in
 	"copy" )
 		if [ $(command -v pbcopy) ]; then
 			cmd="pbcopy"
 		elif [ $(command -v xclip) ]; then
-			cmd="xclip -selection clipboard -i"
+			cmd="xclip"
+			args=(-selection clipboard -i)
 		elif [ $(command -v xsel) ]; then
-			cmd="xsel -ib"
+			cmd="xsel"
+			args=(-ib)
 		else
 			fatal "No clipboard utility found for copy."
 		fi
@@ -46,9 +49,11 @@ case "$1" in
 		if [ $(command -v pbpaste) ]; then
 			cmd="pbpaste"
 		elif [ $(command -v xclip) ]; then
-			cmd="xclip -selection clipboard -o"
+			cmd="xclip"
+			args=(-selection clipboard -o)
 		elif [ $(command -v xsel) ]; then
-			cmd="xsel -ob"
+			cmd="xsel"
+			args=(-ob)
 		else
 			fatal "No clipboard utility found for paste."
 		fi
@@ -58,8 +63,5 @@ case "$1" in
 		;;
 esac
 
-if [ $(command -v reattach-to-user-namespace) ]; then
-	exec reattach-to-user-namespace "$cmd 2>&1"
-else
-	eval "$cmd 2>&1"
-fi
+#echo "CMD: ${cmd} ${args[@]}" > tmux_command.txt
+exec "$cmd" ${args[@]} > ~/.tmux_copypaste.log 2>&1
