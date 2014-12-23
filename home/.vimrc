@@ -1,78 +1,166 @@
-" General configuration set nocompatible
+" My really bad .vimrc
+"
+" I mean it.  Thing sucks donkey balls.  But it works for me.
+
+set nocompatible
+filetype off
+
+" Plugins ----------- {{{
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
+
+Plugin 'gmarik/vundle'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'geekjuice/vim-spec'
+Plugin 'kien/ctrlp.vim'
+Plugin 'moll/vim-node'
+Plugin 'pangloss/vim-javascript'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'tomtom/tinykeymap_vim'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+Plugin 'vadimr/bclose.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/taglist.vim'
+call vundle#end()
+" }}}
+
+" Options ---------- {{{
+set encoding=utf-8
 set modeline
 set modelines=5
-set hlsearch
-set incsearch
+set autoindent
 set showmode
+set showcmd
+set visualbell
+set ttyfast
+set ruler
+set backspace=indent,eol,start
+set number
+set norelativenumber
+set laststatus=2
+set history=1000
+set undofile
+set undoreload=10000
+set list
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set lazyredraw
+set matchtime=5
+set showbreak=↪
+set splitbelow
+set splitright
+set autoread
+set shiftround
+set title
+set linebreak
+set colorcolumn=+1
+
+
+" Wildmenu stuffs {{{
+set wildmenu
+set wildmode=list:longest
+set wildignore+=.hg,.git,.svn
+set wildignore+=*.aux,*.out,*.toc
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.so,*.manifest
+set wildignore+=*.sw?
+set wildignore+=*.DS_Store
+" }}}
+
+" Tabs/Spaces/Wrapping {{{
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set noexpandtab
+set wrap
+set textwidth=80
+set cindent
+set smarttab
+" }}}
+
+" Searching and cursor movement{{{
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set incsearch
+set showmatch
+set hlsearch
+set gdefault
+
+set cursorline
+set cursorcolumn
+
+set scrolloff=4
+set sidescroll=1
+set sidescrolloff=10
+
+set virtualedit+=block
+
+noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
+
+" Move between splits
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+" }}}
+
+" Filetypes ----------- {{{
+augroup ft_markdown
+	au!
+	au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+augroup END
+
+augroup ft_ruby
+	au!
+	au FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
+augroup END
+
+augroup ft_css
+	au!
+	au FileType css,scss set sw=4 sts=4 ts=4 noet
+augroup END
+
+augroup ft_javascript
+	au!
+	au FileType javascript,jade set ai ts=2 sw=2 sts=2 et
+augroup END
+" }}}
+
+
+filetype plugin indent on
 
 " Formatting
-set nowrap
-set textwidth=0
-set backspace=indent,eol,start
-set tabstop=4
-set sts=4
-set shiftwidth=4
-set noexpandtab
-set smartindent
-set smarttab
 
-set autoindent
-set cindent
-set cinoptions=+0
-
-set number
-set showmatch
-set matchtime=5
-set novisualbell
-set laststatus=2
-set ruler
 
 set mouse+=a
 if &term =~ '^screen'
 	set ttymouse=xterm2
 endif
-set title
 
 set statusline=[%n]\ %f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%{fugitive#statusline()}%=%c,%l/%L\ %P
 
 let mapleader = ","
 let g:mapleader = ","
 
-" Giving Vundle a try
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+augroup cursor_line
+	au!
+	au WinLeave,InsertEnter * set nocursorline nocursorcolumn
+	au WinEnter,InsertLeave * set cursorline cursorcolumn
+augroup END
 
-Plugin 'gmarik/vundle'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vadimr/bclose.vim'
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'geekjuice/vim-spec'
-Plugin 'pangloss/vim-javascript'
-Plugin 'digitaltoad/vim-jade'
-Plugin 'tomtom/tinykeymap_vim'
 syntax on
-
-" neocomplcache
-"let g:neocomplcache_enable_at_startup = 1
-"let g:neocomplcache_enable_smart_case = 1
-"let g:neocomplcache_min_syntax_length = 3
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-"let g:neocomplcache_dictionary_filetype_lists = {
-"	\ 'default' : ''
-"		\ }
 
 " neocomplete
 let g:acp_enableAtStartup = 0
@@ -88,12 +176,42 @@ if !exists('g:neocomplete#keyword_patterns')
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
+" neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: "\<TAB>"
+let g:neosnippet#snippets_directory='~/.neosnippets'
+
+if has('conceal')
+	set conceallevel=2 concealcursor=i
+endif
+
 " CTRL-P
 let g:ctrlp_map = '<leader>,'
 let g:ctrlp_command = 'CtrlP'
 let g:ctrlp_custom_ignore = {
-	\ 'dir': 'vendor\|\.git|node_modules\'
+	\ 'dir': '\v[\/](.git|.svn|vendor|node_modules)'
 	\ }
+
+" vim-airline
+let g:airline_powerline_fonts=1
+
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_nr_show=1
+let g:airline#extensions#default#section_truncate_width = {
+	\ 'y': 120,
+	\ 'x': 110,
+	\ 'z': 100
+\ }
+
+map <Leader>ar :AirlineRefresh<CR>
 
 " vim-spec
 map <Leader>t :call RunCurrentSpecFile()<CR>
@@ -108,11 +226,6 @@ if filereadable(fnamemodify('fig.yml', ':p'))
 	let g:mocha_js_command = "!fig run app bash -c \"\\$(npm bin)/mocha {spec}\""
 endif
 
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-
-filetype off
-filetype plugin indent on
-
 set background=dark
 silent! colorscheme solarized
 
@@ -124,11 +237,3 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-
-augroup myfiletypes
-	autocmd!
-	autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-	autocmd FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
-	autocmd FileType scss set sw=4 sts=4 ts=4 noet
-	autocmd FileType javascript,jade set ai ts=2 sw=2 sts=2 et
-augroup END

@@ -1,0 +1,19 @@
+snippet describe
+alias   desc
+    describe('${1:feature}', function(${2:#:argument}) {
+      ${3}
+    });
+
+snippet it
+    it('${1:feature}', function(${2:#:argument}) {
+      ${3}
+    });
+
+snippet before
+    before(function(${1:#:argument}) {
+    });
+
+snippet beforeEach
+    beforeEach(function(${1:#:argument}) {
+      ${2}
+    });
