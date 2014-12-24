@@ -1,7 +1,7 @@
 # Swap Files #
 ##############
-*.swp
-*.swo
+*.sw*
+*.un*
 *.DS_Store
 vendor/bundle
 coverage/*
