@@ -13,6 +13,7 @@ Plugin 'gmarik/vundle'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
+Plugin 'chriskempson/base16-vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'geekjuice/vim-spec'
@@ -227,7 +228,7 @@ if filereadable(fnamemodify('fig.yml', ':p'))
 endif
 
 set background=dark
-silent! colorscheme solarized
+silent! colorscheme base16-3024
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
