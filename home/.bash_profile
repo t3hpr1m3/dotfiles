@@ -6,8 +6,6 @@ if [ -d /opt/chefdk/bin ]; then
 fi
 EDITOR=$(which vim)
 export EDITOR
-XSESSION="Xfce4"
-export XSESSION
 export DISTCC_DIR=/var/tmp/portage/.distcc/
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
