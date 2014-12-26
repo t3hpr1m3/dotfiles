@@ -228,7 +228,7 @@ if filereadable(fnamemodify('fig.yml', ':p'))
 endif
 
 set background=dark
-silent! colorscheme base16-isotope
+silent! colorscheme base16-google
 
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
