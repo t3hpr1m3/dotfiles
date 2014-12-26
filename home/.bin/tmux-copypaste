@@ -37,7 +37,7 @@ case "$1" in
 			cmd="pbcopy"
 		elif [ $(command -v xclip) ]; then
 			cmd="xclip"
-			args=(-selection clipboard -i)
+			args=(-l 1 -i -selection clipboard -i)
 		elif [ $(command -v xsel) ]; then
 			cmd="xsel"
 			args=(-ib)
