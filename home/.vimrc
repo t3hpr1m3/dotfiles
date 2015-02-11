@@ -125,6 +125,7 @@ augroup END
 
 augroup ft_ruby
 	au!
+	au FileType ruby setlocal foldmethod=syntax
 	au FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
 augroup END
 
@@ -135,6 +136,7 @@ augroup END
 
 augroup ft_javascript
 	au!
+	au FileType javascript setlocal foldmethod=syntax
 	au FileType javascript,jade set ai ts=2 sw=2 sts=2 et
 augroup END
 " }}}
