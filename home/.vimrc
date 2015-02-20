@@ -136,7 +136,7 @@ augroup END
 
 augroup ft_javascript
 	au!
-	au FileType javascript setlocal foldmethod=syntax
+	au FileType javascript setlocal foldenable|setlocal foldmethod=syntax|setlocal foldlevel=2
 	au FileType javascript,jade set ai ts=2 sw=2 sts=2 et
 augroup END
 " }}}
