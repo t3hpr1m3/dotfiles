@@ -229,6 +229,11 @@ if filereadable(fnamemodify('fig.yml', ':p'))
 	let g:mocha_js_command = "!fig run app bash -c \"\\$(npm bin)/mocha {spec}\""
 endif
 
+if filereadable(fnamemodify('docker-compose.yml', ':p'))
+	let g:rspec_command = "!docker-compose run app bash -c \"bundle exec rspec {spec}\""
+	let g:mocha_js_command = "!docker-compose run app bash -c \"\\$(npm bin)/mocha {spec}\""
+endif
+
 set background=dark
 silent! colorscheme base16-google
 
