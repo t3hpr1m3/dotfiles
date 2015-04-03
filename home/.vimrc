@@ -19,17 +19,20 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'geekjuice/vim-spec'
 Plugin 'kien/ctrlp.vim'
 Plugin 'moll/vim-node'
+Plugin 'mtth/scratch.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tomtom/tinykeymap_vim'
-Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'vadimr/bclose.vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/taglist.vim'
@@ -50,7 +53,7 @@ set backspace=indent,eol,start
 set number
 set norelativenumber
 set laststatus=2
-set history=1000
+" set history=1000
 set undofile
 set undoreload=10000
 set list
@@ -65,6 +68,9 @@ set shiftround
 set title
 set linebreak
 set colorcolumn=+1
+
+let mapleader = ","
+let g:mapleader = ","
 
 
 " Wildmenu stuffs {{{
@@ -107,17 +113,10 @@ set sidescroll=1
 set sidescrolloff=10
 
 set virtualedit+=block
-
-noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
-
-" Move between splits
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
 " }}}
 
 " Filetypes ----------- {{{
+filetype plugin indent on
 augroup ft_markdown
 	au!
 	au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
@@ -141,21 +140,13 @@ augroup ft_javascript
 augroup END
 " }}}
 
-
-filetype plugin indent on
-
-" Formatting
-
-
+" Formatting ---------- {{{
 set mouse+=a
 if &term =~ '^screen'
 	set ttymouse=xterm2
 endif
 
 set statusline=[%n]\ %f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%{fugitive#statusline()}%=%c,%l/%L\ %P
-
-let mapleader = ","
-let g:mapleader = ","
 
 augroup cursor_line
 	au!
@@ -164,7 +155,10 @@ augroup cursor_line
 augroup END
 
 syntax on
+" }}}
 
+" Plugin Settings ----- {{{
+"
 " neocomplete
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
@@ -202,6 +196,7 @@ let g:ctrlp_command = 'CtrlP'
 let g:ctrlp_custom_ignore = {
 	\ 'dir': '\v[\/](.git|.svn|vendor|node_modules)'
 	\ }
+let g:scratch_autohide = 1
 
 " vim-airline
 let g:airline_powerline_fonts=1
@@ -214,13 +209,15 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ 'z': 100
 \ }
 
-map <Leader>ar :AirlineRefresh<CR>
-
 " vim-spec
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+
+" }}}
+
+" Docker/Fig ---------- {{{
 
 " Check to see if we have a fig.yml file
 " If we do, pipe all commands through `fig run app $cmd`
@@ -233,10 +230,20 @@ if filereadable(fnamemodify('docker-compose.yml', ':p'))
 	let g:rspec_command = "!docker-compose run app bash -c \"bundle exec rspec {spec}\""
 	let g:mocha_js_command = "!docker-compose run app bash -c \"\\$(npm bin)/mocha {spec}\""
 endif
+" }}}
 
 set background=dark
 silent! colorscheme base16-google
 
+
+noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
+
+" Move between splits
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+map <Leader>ar :AirlineRefresh<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
 noremap <leader>q :Bclose<CR>
@@ -244,4 +251,5 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+noremap <Leader>. :Ag<Space>
 
