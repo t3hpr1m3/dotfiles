@@ -13,7 +13,7 @@ else
 	alias ls='ls -G'
 fi
 
-## ALIAS ## 
+## ALIAS ##
 alias l="ls -l -h"
 alias df="df -h"
 alias gview="gvim -m -R"
@@ -44,7 +44,7 @@ if [ -n "$local256" ]; then
 fi
 unset local256
 
-# Change the window title of X terminals 
+# Change the window title of X terminals
 case $TERM in
 	xterm*|rxvt*|Eterm)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\007"'
