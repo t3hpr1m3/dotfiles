@@ -1,4 +1,4 @@
 #!/bin/sh
 trap "rm -f .git/tags.$$" EXIT
-ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --exclude=vendor --exclude=log
+ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --exclude=vendor --exclude=log --exclude=node_modules
 mv .git/tags.$$ .git/tags
