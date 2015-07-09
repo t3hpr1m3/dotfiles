@@ -2,9 +2,9 @@
 
 # Change the following six lines to match your Gmail account details
 set imap_user = "joshw@firma8.com"
-set imap_pass = "R0b0tz#!3
+set imap_pass = "<secret>"
 set smtp_url = "smtp://joshw@firma8.com@smtp.gmail.com:587/"
-set smtp_pass = "R0b0tz#!3"
+set smtp_pass = "<secret>"
 set from = "joshw@firma8.com"
 set realname = "Josh Williams"
 
