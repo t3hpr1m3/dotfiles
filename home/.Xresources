@@ -1,5 +1,5 @@
-Xft.dpi: 82
-Xfg.autohint: 0
+!Xft.dpi: 82
+!Xfg.autohint: 0
 
 #define base00 #1d1f21
 #define base01 #505256
@@ -40,18 +40,14 @@ Xfg.autohint: 0
 *.color14:      base0F
 *.color15:      base07
 
-*VT100.Translations: #override \
-	<Key>BackSpace: string(0x7F)\n\
-	<Key>Delete:    string("\033[3~")\n\
-	<Key>Home:      string("\033[1~")\n\
-	<Key>End:       string("\033[4~")
 *ttyModes: erase ^?
 
 XTerm*faceName: Sauce Code Powerline
-XTerm*faceSize: 6
 XTerm*boldMode: false
 XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
 XTerm.iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
 
 yeahconsole*toggleKey: Alt+F1
+
+#include ".Xresources.d/xterm-font-size"
