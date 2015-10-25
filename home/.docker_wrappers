@@ -1,0 +1,36 @@
+function eclipse {
+	if [[ ! -f /tmp/.eclipse.xauth ]]; then
+		touch /tmp/.eclipse.xauth
+		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.eclipse.xauth nmerge -
+	fi
+	docker run \
+		--rm \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v /tmp/.eclipse.xauth:/tmp/.eclipse.xauth \
+		-v $(pwd):/home/eclipse/workspace \
+		-e XAUTHORITY=/tmp/.eclipse.xauth \
+		-e DISPLAY=unix$DISPLAY \
+		--name eclipse \
+		eclipse
+}
+
+function gradle {
+	if [[ ! -f /tmp/.gradle.xauth ]]; then
+		touch /tmp/.gradle.xauth
+		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.gradle.xauth nmerge -
+	fi
+	if [[ ! -d $(pwd)/.gradle_caches ]]; then
+		mkdir $(pwd)/.gradle_caches
+	fi
+	docker run \
+		--rm \
+		-t \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-v /tmp/.gradle.xauth:/tmp/.gradle.xauth \
+		-v $(pwd):/usr/src/app \
+		-v $(pwd)/.gradle_caches:/root/.gradle/caches \
+		-e XAUTHORITY=/tmp/.gradle.xauth \
+		-e DISPLAY=unix$DISPLAY \
+		--name gradle \
+		jdubz/gradle:2.0 "$@"
+}

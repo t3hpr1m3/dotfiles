@@ -96,3 +96,7 @@ fi
 function cds {
 	du -ckshx .[!.]* * 2>/dev/null | sort -h
 }
+
+if [[ -f $HOME/.docker_wrappers ]]; then
+	. $HOME/.docker_wrappers
+fi
