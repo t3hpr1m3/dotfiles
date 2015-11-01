@@ -1,0 +1,15 @@
+# Recursively calculate the size of the current directory, without crossing
+# filesystem boundaries.  Results are sorted ascending.
+function cds {
+	du -ckshx .[!.]* * 2>/dev/null | sort -h
+}
+
+function parse_git_dirty {
+	[[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]] && echo "*"
+}
+
+function parse_git_branch {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+# vim: set ft=sh:

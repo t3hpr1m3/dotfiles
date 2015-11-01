@@ -1,35 +1,14 @@
-## COLORS ##
-if which dircolors >/dev/null; then
-	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-	if [[ -f ~/.dir_colors ]]; then
-		eval `dircolors -b ~/.dir_colors`
-	elif [[ -f /etc/DIR_COLORS ]]; then
-		eval `dircolors -b /etc/DIR_COLORS`
-	else
-		eval `dircolors -b`
+#
+# vi mode ftw
+#
+set -o vi
+
+for file in $HOME/.{aliases,docker_wrappers,functions}; do
+	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+		. $file
 	fi
-	alias ls='ls --color=auto'
-else
-	alias ls='ls -G'
-fi
-
-## ALIAS ##
-alias l="ls -l -h"
-alias df="df -h"
-alias gview="gvim -m -R"
-alias gvime="gvim -u ~/code/engine/misc/vimrc"
-alias gvimv="gvim -u ~/.vimrcv"
-alias p="ps faux"
-alias vimmate="vimmate > /dev/null 2>&1"
-
-alias dmon="DISTCC_DIR=/var/tmp/portage/.distcc distccmon-text"
-
-alias halt='sudo /sbin/halt'
-alias reboot='sudo /sbin/reboot'
-
-alias es='gvim src/*.cpp include/*.h'
-alias annotate='annotate -p before'
-alias top='sudo top'
+done
+unset file
 
 # Terminal capabilities
 local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
@@ -53,32 +32,9 @@ case $TERM in
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 		;;
 esac
-function parse_git_dirty {
-	[[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]] && echo "*"
-}
-function parse_git_branch {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
-}
 export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h: \[\033[1;33m\]\$(/usr/bin/tty | sed -e 's:/dev/::')\[\033[0m\] \[\033[1;32m\]\$(parse_git_branch)\[\033[0m\] -> \[\033[0m\]"
 
-# for SSH stuff
-if [ $(command -v keychain) ]; then
-	KEYS=()
-	if [[ -f ~/.ssh/id_dsa ]]; then
-		KEYS+=('id_dsa')
-	fi
-	if [[ -f ~/.ssh/id_rsa ]]; then
-		KEYS+=('id_rsa')
-	fi
-	eval $(keychain --eval --agents ssh --inherit any ${KEYS[@]})
-fi
-
-#if [[ -f ~/.keychain/$HOSTNAME-sh ]]; then
-#	keychain ~/.ssh/id_dsa
-#	. ~/.keychain/$HOSTNAME-sh
-#fi
-
-# Homeshick?
+# Homeshick
 if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
 	source ~/.homesick/repos/homeshick/homeshick.sh
 fi
@@ -93,10 +49,4 @@ if [ -n "$DISPLAY" ]; then
 	fi
 fi
 
-function cds {
-	du -ckshx .[!.]* * 2>/dev/null | sort -h
-}
-
-if [[ -f $HOME/.docker_wrappers ]]; then
-	. $HOME/.docker_wrappers
-fi
+# vim: set ft=sh:

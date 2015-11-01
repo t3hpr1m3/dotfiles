@@ -34,3 +34,5 @@ function gradle {
 		--name gradle \
 		jdubz/gradle:2.0 "$@"
 }
+
+# vim: set ft=sh:
