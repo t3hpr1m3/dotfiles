@@ -11,7 +11,6 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'digitaltoad/vim-jade'
