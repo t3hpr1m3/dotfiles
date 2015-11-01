@@ -4,6 +4,11 @@ export CVS_RSH
 if [ -d /opt/chefdk/bin ]; then
 	export PATH=/opt/chefdk/bin:$PATH
 fi
+
+if [[ -d /usr/local/go/bin ]]; then
+	export PATH=/usr/local/go/bin:$PATH
+fi
+
 EDITOR=$(which vim)
 export EDITOR
 export DISTCC_DIR=/var/tmp/portage/.distcc/
@@ -28,6 +33,11 @@ fi
 if [ -d $HOME/.rbenv ]; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
+fi
+
+if [ -f $HOME/.gopath ]; then
+	export GOPATH=$(cat $HOME/.gopath)
+	export PATH="$GOPATH/bin:$PATH"
 fi
 
 if [ $(command -v boot2docker) ]; then

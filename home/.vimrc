@@ -36,6 +36,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'vadimr/bclose.vim'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/taglist.vim'
+Plugin 'fatih/vim-go'
 call vundle#end()
 " }}}
 
@@ -144,6 +145,13 @@ augroup ft_python
 	au FileType python setlocal foldenable|setlocal foldmethod=syntax|setlocal foldlevel=2
 	au FileType python set ai ts=8 sw=8 sts=8 noet
 augroup END
+
+augroup ft_go
+	au!
+	au FileType go nmap <leader>r <Plug>(go-run)
+	au FileType go nmap <leader>b <Plug>(go-build)
+	au FileType go nmap <leader>t <Plug>(go-test)
+	au FileType go nmap <leader>c <Plug>(go-coverage)
 " }}}
 
 " Formatting ---------- {{{
