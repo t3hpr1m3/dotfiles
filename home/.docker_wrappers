@@ -35,4 +35,30 @@ function gradle {
 		jdubz/gradle:2.0 "$@"
 }
 
+function go {
+	if [[ -z "$GOPATH" ]]; then
+		echo "GOPATH must be set"
+		return 1
+	fi
+
+	# Make sure the current directory is somewhere inside GOPATH
+	if [[ "$(pwd)" == "$GOPATH"* ]]; then
+		# make the path relative so it can be resolved in the container
+		workdir="${PWD/#$GOPATH/}"
+
+		# fire it off
+		docker run \
+			--rm \
+			-t \
+			-v $GOPATH:/go \
+			--name go \
+			jdubz/golang:1.5.1 \
+			$workdir \
+			$1
+	else
+		echo "Current directory not in GOPATH"
+		return 1
+	fi
+}
+
 # vim: set ft=sh:

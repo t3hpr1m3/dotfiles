@@ -12,4 +12,22 @@ function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+function abspath {
+	dir=$1
+	if [[ -d "$dir" ]]; then
+		(cd "$dir"; pwd)
+	elif [[ -f "$dir" ]]; then
+		filename=$(basename $dir)
+		dir=$(abspath $(dirname $dir))
+		if [[ $? -eq 0 ]]; then
+			echo "$dir/$filename"
+		else
+			exit 1
+		fi
+	else
+		echo "File not found: $dir"
+		exit 1
+	fi
+}
+
 # vim: set ft=sh:
