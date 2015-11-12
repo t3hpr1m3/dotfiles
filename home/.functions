@@ -4,6 +4,17 @@ function cds {
 	du -ckshx .[!.]* * 2>/dev/null | sort -h
 }
 
+# Sets up a tmux session based on the current directory
+function tdev {
+	dir=${PWD##*/}
+	tmux new -s "$dir" -n code -d
+	tmux split-window -v -p 20
+	tmux split-window -h -p 50
+	tmux select-pane -t 0
+	tmux send-keys "vim" C-m
+	tmux attach-session -t "$dir"
+}
+
 function parse_git_dirty {
 	[[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]] && echo "*"
 }
