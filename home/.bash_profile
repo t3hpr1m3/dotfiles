@@ -60,16 +60,21 @@ fi
 #
 # Keychain/SSH stuffs
 #
-if [ $(command -v keychain) ]; then
-	KEYS=()
-	if [[ -f ~/.ssh/id_dsa ]]; then
-		KEYS+=('id_dsa')
+load_keys() {
+	if [ $(command -v keychain) ]; then
+		KEYS=()
+		public_keys=$(find $HOME/.ssh -name \*.pub)
+		for public_key in $public_keys; do
+			private_key=$(basename $public_key .pub)
+			if [[ -f "$(dirname $public_key)/$private_key" ]]; then
+				KEYS+=("$private_key")
+			fi
+		done
+		eval $(keychain --eval --agents ssh --inherit any ${KEYS[@]})
 	fi
-	if [[ -f ~/.ssh/id_rsa ]]; then
-		KEYS+=('id_rsa')
-	fi
-	eval $(keychain --eval --agents ssh --inherit any ${KEYS[@]})
-fi
+}
+
+load_keys
 
 #
 # Now, source the juicy bits
