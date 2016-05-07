@@ -58,10 +58,10 @@ set laststatus=2
 set undofile
 set undoreload=10000
 set list
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set listchars=tab:␉·,eol:¬,precedes:«,extends:»
 set lazyredraw
 set matchtime=5
-set showbreak=↪
+set showbreak=+++\ 
 set splitbelow
 set splitright
 set autoread
