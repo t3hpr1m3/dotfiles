@@ -11,7 +11,6 @@ call vundle#begin()
 
 Plugin 'gmarik/vundle'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'edkolev/tmuxline.vim'
@@ -33,6 +32,8 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vadimr/bclose.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'fatih/vim-go'
@@ -247,6 +248,7 @@ endif
 
 set background=dark
 silent! colorscheme base16-google
+let g:airline_theme='base16'
 
 
 noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
