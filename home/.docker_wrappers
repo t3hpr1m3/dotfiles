@@ -40,7 +40,7 @@ function go {
 			-t \
 			-v $GOPATH:/go \
 			--name go \
-			t3hpr1m3/golang:1.5.1 \
+			jdubz/golang:1.0.0 \
 			$workdir \
 			$1
 	else
