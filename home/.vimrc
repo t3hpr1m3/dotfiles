@@ -247,9 +247,8 @@ endif
 " }}}
 
 set background=dark
-silent! colorscheme base16-google
-let g:airline_theme='base16'
-
+silent! colorscheme base16-twilight
+let g:airline_theme='base16_twilight'
 
 noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
 

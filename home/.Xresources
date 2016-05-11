@@ -1,43 +1,42 @@
 Xfg.autohint: 0
 
-#define base00 #1d1f21
-#define base01 #3d3d3d
-#define base02 #373b41
-#define base03 #969896
-#define base04 #b4b7b4
-#define base05 #c5c8c6
-#define base06 #e0e0e0
-#define base07 #ffffff
-#define base08 #CC342B
-#define base09 #F96A38
-#define base0A #FBA922
-#define base0B #198844
-#define base0C #3971ED
-#define base0D #3971ED
-#define base0E #A36AC7
-#define base0F #3971ED
-
-*.foreground:   base05
-*.background:   base00
-*.cursorColor:  base05
-
-*.color0:       base00
-*.color1:       base08
-*.color2:       base0B
-*.color3:       base0A
-*.color4:       base0D
-*.color5:       base0E
-*.color6:       base0C
-*.color7:       base05
-
-*.color8:       base03
-*.color9:       base09
-*.color10:      base01
-*.color11:      base02
-*.color12:      base04
-*.color13:      base06
-*.color14:      base0F
-*.color15:      base07
+! #include ".xthemes/base16-google"
+! #include ".xthemes/base16-3024.dark.xresources"
+! #include ".xthemes/base16-apathy.dark.xresources"
+! #include ".xthemes/base16-ashes.dark.xresources"
+! #include ".xthemes/base16-atelierdune.dark.xresources"
+! #include ".xthemes/base16-atelierforest.dark.xresources"
+! #include ".xthemes/base16-atelierheath.dark.xresources"
+! #include ".xthemes/base16-atelierlakeside.dark.xresources"
+! #include ".xthemes/base16-atelierseaside.dark.xresources"
+! #include ".xthemes/base16-bespin.dark.xresources"
+! #include ".xthemes/base16-brewer.dark.xresources"
+! #include ".xthemes/base16-bright.dark.xresources"
+! #include ".xthemes/base16-chalk.dark.xresources"
+! #include ".xthemes/base16-codeschool.dark.xresources"
+! #include ".xthemes/base16-colors.dark.xresources"
+! #include ".xthemes/base16-default.dark.xresources"
+! #include ".xthemes/base16-eighties.dark.xresources"
+! #include ".xthemes/base16-embers.dark.xresources"
+! #include ".xthemes/base16-flat.dark.xresources"
+! #include ".xthemes/base16-google.dark.xresources"
+! #include ".xthemes/base16-grayscale.dark.xresources"
+! #include ".xthemes/base16-greenscreen.dark.xresources"
+! #include ".xthemes/base16-harmonic16.dark.xresources"
+! #include ".xthemes/base16-isotope.dark.xresources"
+! #include ".xthemes/base16-londontube.dark.xresources"
+! #include ".xthemes/base16-marrakesh.dark.xresources"
+! #include ".xthemes/base16-mocha.dark.xresources"
+! #include ".xthemes/base16-monokai.dark.xresources"
+! #include ".xthemes/base16-ocean.dark.xresources"
+! #include ".xthemes/base16-paraiso.dark.xresources"
+! #include ".xthemes/base16-railscasts.dark.xresources"
+! #include ".xthemes/base16-shapeshifter.dark.xresources"
+! #include ".xthemes/base16-solarized.dark.xresources"
+! #include ".xthemes/base16-summerfruit.dark.xresources"
+! #include ".xthemes/base16-tomorrow.dark.xresources"
+! Maybe?
+#include ".xthemes/base16-twilight.dark.xresources"
 
 *ttyModes: erase ^?
 
@@ -46,6 +45,18 @@ XTerm*boldMode: false
 XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
 XTerm.iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
+
+rofi.color-enabled: true
+rofi.separator-style: solid
+rofi.sidebar-mode: false
+rofi.bw: 2
+rofi.padding: 16
+rofi.font: System San Francisco Display 18
+rofi.opacity: 75
+rofi.color-normal: base03, base06, base03, base0F, base07
+rofi.color-active: base0D, base06, base0D, base0F, base06
+rofi.color-urgent: base0D, base06, base0D, base0F, base06
+rofi.color-window: base03, base06
 
 yeahconsole*toggleKey: Alt+F1
 
