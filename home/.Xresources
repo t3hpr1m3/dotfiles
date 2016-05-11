@@ -35,12 +35,11 @@ Xfg.autohint: 0
 ! #include ".xthemes/base16-solarized.dark.xresources"
 ! #include ".xthemes/base16-summerfruit.dark.xresources"
 ! #include ".xthemes/base16-tomorrow.dark.xresources"
-! Maybe?
 #include ".xthemes/base16-twilight.dark.xresources"
 
 *ttyModes: erase ^?
 
-XTerm*faceName: Sauce Code Powerline
+XTerm*faceName: Droid Sans Mono for Powerline
 XTerm*boldMode: false
 XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
@@ -51,7 +50,7 @@ rofi.separator-style: solid
 rofi.sidebar-mode: false
 rofi.bw: 2
 rofi.padding: 16
-rofi.font: System San Francisco Display 18
+rofi.font: SFNS Display 18
 rofi.opacity: 75
 rofi.color-normal: base03, base06, base03, base0F, base07
 rofi.color-active: base0D, base06, base0D, base0F, base06
