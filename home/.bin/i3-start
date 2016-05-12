@@ -1,0 +1,4 @@
+#!/bin/bash
+cat $HOME/.i3/config.local \
+		$HOME/.i3/config.base > $HOME/.i3/config
+i3
