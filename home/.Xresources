@@ -43,8 +43,8 @@ XTerm*faceName: Droid Sans Mono for Powerline
 XTerm*boldMode: false
 XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
-XTerm.iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
-XTerm.selectToClipboard: true
+XTerm*iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
+XTerm*selectToClipboard: true
 
 rofi.color-enabled: true
 rofi.separator-style: solid
