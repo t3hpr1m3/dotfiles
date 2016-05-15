@@ -1,3 +1,39 @@
+function ansible {
+	docker run \
+		--rm -it \
+		-v $(pwd):/usr/src/app \
+		--name ansible \
+		-v $SSH_AUTH_SOCK:/ssh-agent \
+		-e SSH_AUTH_SOCK=/ssh-agent \
+		--tmpfs /tmp \
+		jdubz/ansible \
+		ansible "$@"
+}
+
+function ansible-playbook {
+	docker run \
+		--rm -it \
+		-v $(pwd):/usr/src/app \
+		--name ansible \
+		-v $SSH_AUTH_SOCK:/ssh-agent \
+		-e SSH_AUTH_SOCK=/ssh-agent \
+		--tmpfs /tmp \
+		jdubz/ansible \
+		ansible-playbook "$@"
+}
+
+function ansible-vault {
+	docker run \
+		--rm -it \
+		-v $(pwd):/usr/src/app \
+		--name ansible \
+		-v $SSH_AUTH_SOCK:/ssh-agent \
+		-e SSH_AUTH_SOCK=/ssh-agent \
+		--tmpfs /tmp \
+		jdubz/ansible \
+		ansible-vault "$@"
+}
+
 function aws {
 	docker run \
 		--rm -it \
