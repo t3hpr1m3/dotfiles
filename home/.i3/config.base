@@ -224,7 +224,7 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 for_window [class="Pavucontrol"] floating enable
 
 exec xrdb -merge ~/.Xresources
-exec xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 -f -F
+exec compton -f
 exec source $HOME/.fehbg
 exec parcellite
 exec yeahconsole
