@@ -23,6 +23,23 @@ function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)] /"
 }
 
+function get_git_status {
+	branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
+	if [[ -z $branch ]]; then
+		echo ""
+	else
+		pre=""
+		post=""
+		if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]]; then
+			pre="\033[33m"
+			post="*"
+		else
+			pre="\033[32m"
+		fi
+		echo -e "\033[1;32m[\033[0m$pre$branch$post\033[1;32m] \033[0m"
+	fi
+}
+
 function abspath {
 	dir=$1
 	if [[ -d "$dir" ]]; then
