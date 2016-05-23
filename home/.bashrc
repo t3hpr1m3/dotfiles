@@ -32,7 +32,8 @@ case $TERM in
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/$HOME/~}\033\\"'
 		;;
 esac
-export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h: \[\033[1;33m\]\$(/usr/bin/tty | sed -e 's:/dev/::')\[\033[0m\] \[\033[1;32m\]\$(parse_git_branch)\[\033[0m\] -> \[\033[0m\]"
+# export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h: \[\033[1;33m\]\$(/usr/bin/tty | sed -e 's:/dev/::')\[\033[0m\] \[\033[1;32m\]\$(parse_git_branch)\[\033[0m\] -> \[\033[0m\]"
+export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h \[\033[1;32m\]\$(parse_git_branch)\[\033[0m\]-> \[\033[0m\]"
 
 # Homeshick
 if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
