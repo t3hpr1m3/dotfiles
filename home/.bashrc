@@ -23,11 +23,6 @@ if [ -n "$local256" ]; then
 fi
 unset local256
 
-# Transparency
-if [ -n "$XTERM_VERSION" ] && [ $(command -v transset) ]; then
-	transset --id "$WINDOWID" 0.85 >/dev/null
-fi
-
 # Change the window title of X terminals
 case $TERM in
 	xterm*|rxvt*|Eterm)
