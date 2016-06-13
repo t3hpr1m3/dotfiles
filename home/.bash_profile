@@ -40,6 +40,14 @@ if [ -d $HOME/.rbenv ]; then
 fi
 
 #
+# Dalias
+#
+if [ -d $HOME/.dalias ]; then
+	export PATH="$HOME/.dalias/bin:$PATH"
+	eval "$(dalias init)"
+fi
+
+#
 # Go language stuffs
 #
 if [[ -d /usr/local/go/bin ]]; then
@@ -51,10 +59,10 @@ if [ -f $HOME/.gopath ]; then
 fi
 
 #
-# Needed until docker machine comes of age
+# docker-machine
 #
-if [ $(command -v boot2docker) ]; then
-  $(boot2docker shellinit >/dev/null 2>&1)
+if [ $(command -v docker-machine) ]; then
+	eval $(docker-machine env default)
 fi
 
 #

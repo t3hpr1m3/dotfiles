@@ -121,6 +121,16 @@ else
 fi
 
 #
+# Check/install the .dalias repo
+#
+if [ -d "${TARGET_DIR}/.dalias" ]; then
+	printf " = DALIAS already installed\n"
+else
+	printf " - DOWNLOADING DALIAS\n"
+	git clone git@github.com:t3hpr1m3/dalias.git ${TARGET_DIR}/.dalias
+fi
+
+#
 # Prepare vim for enlightenment
 #
 printf " - CONFIGURING VIM\n"
