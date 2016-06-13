@@ -5,7 +5,7 @@
 set nocompatible
 filetype off
 
-" Plugins ----------- {{{
+" Plugins ------------- {{{
 set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
 
@@ -16,8 +16,9 @@ Plugin 'digitaltoad/vim-jade'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'elixir-lang/vim-elixir'
-Plugin 'geekjuice/vim-spec'
+Plugin 'janko-m/vim-test'
 Plugin 'kien/ctrlp.vim'
+Plugin 'Konfekt/FastFold'
 Plugin 'moll/vim-node'
 Plugin 'mtth/scratch.vim'
 Plugin 'pangloss/vim-javascript'
@@ -29,6 +30,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'tomtom/tinykeymap_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
@@ -42,7 +44,7 @@ Plugin 'fatih/vim-go'
 call vundle#end()
 " }}}
 
-" Options ---------- {{{
+" Options ------------- {{{
 set encoding=utf-8
 set modeline
 set modelines=5
@@ -60,7 +62,7 @@ set laststatus=2
 set undofile
 set undoreload=10000
 set list
-set listchars=tab:␉·,eol:¬,precedes:«,extends:»
+set listchars=tab:␉\ ,eol:¬,precedes:«,extends:»
 set lazyredraw
 set matchtime=5
 set showbreak=+++\ 
@@ -71,9 +73,6 @@ set shiftround
 set title
 set linebreak
 set colorcolumn=+1
-
-let mapleader = ","
-let g:mapleader = ","
 
 
 " Wildmenu stuffs {{{
@@ -97,6 +96,33 @@ set textwidth=80
 set cindent
 set smarttab
 " }}}
+" }}}
+
+" Bindings ------------ {{{
+let mapleader = ","
+let g:mapleader = ","
+
+set background=dark
+silent! colorscheme base16-twilight
+let g:airline_theme='base16_twilight'
+
+noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
+
+" Move between splits
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+map <Leader>ar :AirlineRefresh<CR>
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nmap <F3> :NERDTreeToggle<CR>
+noremap <leader>q :Bclose<CR>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+noremap <Leader>. :Ag<Space>
+
 
 " Searching and cursor movement{{{
 nnoremap / /\v
@@ -116,10 +142,14 @@ set sidescroll=1
 set sidescrolloff=10
 
 set virtualedit+=block
+
+set foldmethod=marker
+" }}}
 " }}}
 
 " Filetypes ----------- {{{
 filetype plugin indent on
+map <Leader>d :filetype detect<CR>
 augroup ft_markdown
 	au!
 	au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
@@ -175,7 +205,7 @@ syntax on
 
 " Plugin Settings ----- {{{
 "
-" neocomplete
+" neocomplete {{{
 let g:acp_enableAtStartup = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
@@ -188,8 +218,9 @@ if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" }}}
 
-" neosnippet
+" neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
 smap <C-k> <Plug>(neosnippet_expand_or_jump)
 xmap <C-k> <Plug>(neosnippet_expand_target)
@@ -201,20 +232,25 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 	\ "\<Plug>(neosnippet_expand_or_jump)"
 	\: "\<TAB>"
 let g:neosnippet#snippets_directory='~/.neosnippets'
+" }}}
 
 if has('conceal')
 	set conceallevel=2 concealcursor=i
 endif
 
-" CTRL-P
+" CTRL-P {{{
 let g:ctrlp_map = '<leader>,'
 let g:ctrlp_command = 'CtrlP'
 let g:ctrlp_custom_ignore = {
 	\ 'dir': '\v[\/](.git|.svn|vendor|node_modules)'
 	\ }
-let g:scratch_autohide = 1
+" }}}
 
-" vim-airline
+" Scratch {{{
+let g:scratch_autohide = 1
+" }}}
+
+" vim-airline {{{
 let g:airline_powerline_fonts=1
 
 let g:airline#extensions#tabline#enabled=1
@@ -224,48 +260,29 @@ let g:airline#extensions#default#section_truncate_width = {
 	\ 'x': 110,
 	\ 'z': 100
 \ }
-
-" vim-spec
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
+let g:airline#extensions#whitespace#enabled=1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
 " }}}
 
-" Docker/Fig ---------- {{{
+" vim-test {{{
+nmap <silent> <leader>s :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+let test#strategy = "dispatch"
+let test#ruby#bundle_exec = 0
 
-" Check to see if we have a fig.yml file
-" If we do, pipe all commands through `fig run app $cmd`
-if filereadable(fnamemodify('fig.yml', ':p'))
-	let g:rspec_command = "!fig run app bash -c \"bundle exec rspec {spec}\""
-	let g:mocha_js_command = "!fig run app bash -c \"\\$(npm bin)/mocha {spec}\""
-endif
-
-if filereadable(fnamemodify('docker-compose.yml', ':p'))
-	let g:rspec_command = "!docker-compose run app bash -c \"bundle exec rspec {spec}\""
-	let g:mocha_js_command = "!docker-compose run app bash -c \"\\$(npm bin)/mocha {spec}\""
-endif
+" if filereadable(fnamemodify('docker-compose.yml', ':p'))
+" 	let test#ruby#rspec#executable = "docker-compose run app rspec"
+" 	let test#javascript#mocha#executable = "docker-compose run app mocha"
+" 	let test#elixir#exunit#executable = "docker-compose run app mix test"
+" endif
 " }}}
 
-set background=dark
-silent! colorscheme base16-twilight
-let g:airline_theme='base16_twilight'
+" vim-spec {{{
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 
-noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
-
-" Move between splits
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-map <Leader>ar :AirlineRefresh<CR>
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-nmap <F3> :NERDTreeToggle<CR>
-noremap <leader>q :Bclose<CR>
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-noremap <Leader>. :Ag<Space>
-
+" }}}
+" }}}
