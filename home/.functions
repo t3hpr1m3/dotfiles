@@ -4,15 +4,22 @@ function cds {
 	du -ckshx .[!.]* * 2>/dev/null | sort -h
 }
 
+function dra {
+	docker-compose run app $@
+}
+
 # Sets up a tmux session based on the current directory
 function tdev {
-	dir=${PWD##*/}
-	tmux new -s "$dir" -n code -d
+	name=$1
+	if [[ -z $1 ]]; then
+		name=${PWD##*/}
+	fi
+	tmux new -s "$name" -n code -d
 	tmux split-window -v -p 20
 	tmux split-window -h -p 50
 	tmux select-pane -t 0
 	tmux send-keys "vim" C-m
-	tmux attach-session -t "$dir"
+	tmux attach-session -t "$name"
 }
 
 function parse_git_dirty {
