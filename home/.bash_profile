@@ -82,6 +82,10 @@ load_keys() {
 	fi
 }
 
+if [ -h $HOME/.ssh/ssh_auth_sock ]; then
+	export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+fi
+
 load_keys
 
 #
