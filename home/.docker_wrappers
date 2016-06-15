@@ -34,6 +34,20 @@ function aws {
 		"$@"
 }
 
+function bats {
+	test_path=$1
+	if [[ -z "$test_path" ]]; then
+		echo "You must supply the path to your tests." >&2
+		exit 1
+	fi
+	code_path=$(dirname $(realpath $test_path))
+
+	docker run \
+		--rm -it \
+		-v $code_path:/my-code \
+		dduportal/bats:0.4.0 \
+		/my-code/test
+}
 function eclipse {
 	if [[ ! -f /tmp/.eclipse.xauth ]]; then
 		touch /tmp/.eclipse.xauth
