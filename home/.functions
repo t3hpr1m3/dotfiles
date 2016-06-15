@@ -1,7 +1,17 @@
 # Recursively calculate the size of the current directory, without crossing
 # filesystem boundaries.  Results are sorted ascending.
 function cds {
-	du -ckshx .[!.]* * 2>/dev/null | sort -h
+	case "$OSTYPE" in
+		darwin*)
+			exec du -cksx .[!.]* * 2>/dev/null | sort -n
+			;;
+		linux*)
+			exec du -ckshx .[!.]* * 2>/dev/null | sort -h
+			;;
+		*)
+			echo "wut"
+			;;
+	esac
 }
 
 function dra {
