@@ -1,4 +1,7 @@
-function ansible {
+function _ansible_base {
+	ansible_command=$1
+	shift
+
 	docker run \
 		--rm -it \
 		-v $(pwd):/usr/src/app \
@@ -7,31 +10,19 @@ function ansible {
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		--tmpfs /tmp \
 		jdubz/ansible \
-		ansible "$@"
+		$ansible_command "$@"
+}
+
+function ansible {
+	_ansible_base ansible "$@"
 }
 
 function ansible-playbook {
-	docker run \
-		--rm -it \
-		-v $(pwd):/usr/src/app \
-		--name ansible \
-		-v $SSH_AUTH_SOCK:/ssh-agent \
-		-e SSH_AUTH_SOCK=/ssh-agent \
-		--tmpfs /tmp \
-		jdubz/ansible \
-		ansible-playbook "$@"
+	_ansible_base ansible-playbook
 }
 
 function ansible-vault {
-	docker run \
-		--rm -it \
-		-v $(pwd):/usr/src/app \
-		--name ansible \
-		-v $SSH_AUTH_SOCK:/ssh-agent \
-		-e SSH_AUTH_SOCK=/ssh-agent \
-		--tmpfs /tmp \
-		jdubz/ansible \
-		ansible-vault "$@"
+	_ansible_base ansible-vault
 }
 
 function aws {
