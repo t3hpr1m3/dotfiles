@@ -45,6 +45,7 @@ XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
 XTerm*iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
 XTerm*selectToClipboard: true
+XTerm*metaSendsEscape: true
 
 rofi.color-enabled: true
 rofi.separator-style: solid
