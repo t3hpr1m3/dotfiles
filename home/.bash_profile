@@ -17,6 +17,10 @@ else
 	export TMUX_DEFAULT_COMMAND="${SHELL}"
 fi
 
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	export PATH="/usr/local/sbin:${PATH}"
+fi
+
 #
 # For local scripts not part of homesick
 #
