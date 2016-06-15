@@ -48,12 +48,12 @@ function get_git_status {
 		pre=""
 		post=""
 		if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]]; then
-			pre="\033[33m"
+			pre="\001\033[33m\002"
 			post="*"
 		else
-			pre="\033[32m"
+			pre="\001\033[32m\002"
 		fi
-		echo -e "\033[1;32m[\033[0m$pre$branch$post\033[1;32m] \033[0m"
+		echo -e "\001\033[1;32m\002[\001\033[0m\003$pre$branch$post\001\033[1;32m\002] \001\033[0m\002"
 	fi
 }
 
