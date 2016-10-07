@@ -117,7 +117,7 @@ if [ -d "${TARGET_DIR}/.homesick/repos/homeshick" ]; then
 	printf " = HOMESHICK already installed\n"
 else
 	printf " - DOWNLOADING HOMESHICK\n"
-	git clone git://github.com/andsens/homeshick.git ${TARGET_DIR}/.homesick/repos/homeshick
+	git clone git://github.com/andsens/homeshick.git "${TARGET_DIR}/.homesick/repos/homeshick"
 fi
 
 #
@@ -127,7 +127,7 @@ if [ -d "${TARGET_DIR}/.dalias" ]; then
 	printf " = DALIAS already installed\n"
 else
 	printf " - DOWNLOADING DALIAS\n"
-	git clone git@github.com:t3hpr1m3/dalias.git ${TARGET_DIR}/.dalias
+	git clone git@github.com:t3hpr1m3/dalias.git "${TARGET_DIR}/.dalias"
 fi
 
 #
@@ -135,12 +135,12 @@ fi
 #
 printf " - CONFIGURING VIM\n"
 if [ ! -d "${TARGET_DIR}/.vim/bundle" ]; then
-  	mkdir -p ${TARGET_DIR}/.vim/bundle
+  	mkdir -p "${TARGET_DIR}/.vim/bundle"
 fi
 if [ ! -d "${TARGET_DIR}/.vim/autoload" ]; then
-  	mkdir -p ${TARGET_DIR}/.vim/autoload
+  	mkdir -p "${TARGET_DIR}/.vim/autoload"
 fi
-git clone https://github.com/gmarik/vundle.git ${TARGET_DIR}/.vim/bundle/vundle > /dev/null 2>&1
+git clone https://github.com/gmarik/vundle.git "${TARGET_DIR}/.vim/bundle/vundle" > /dev/null 2>&1
 
 printf "\nAll systems go.  Now, crank it:\n"
 printf "    bash <(curl https://raw.github.com/t3hpr1m3/dotfiles/master/utils/crankit)\n\n"
