@@ -18,11 +18,11 @@ function ansible {
 }
 
 function ansible-playbook {
-	_ansible_base ansible-playbook
+	_ansible_base ansible-playbook "$@"
 }
 
 function ansible-vault {
-	_ansible_base ansible-vault
+	_ansible_base ansible-vault "$@"
 }
 
 function aws {
