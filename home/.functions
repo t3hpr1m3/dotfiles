@@ -31,7 +31,7 @@ function tdev {
 	if [[ -z $1 ]]; then
 		name=${PWD##*/}
 	fi
-	tmux new -s "$name" -n code -d
+	TMUX= tmux new -s "$name" -n code -d
 	tmux split-window -v -p 20
 	tmux split-window -h -p 50
 	tmux select-pane -t 0
