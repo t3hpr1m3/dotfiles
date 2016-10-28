@@ -22,7 +22,11 @@ function cds {
 }
 
 function dra {
-	docker-compose run app $@
+	docker-compose run --rm app $@
+}
+
+function drat {
+	docker-compose -f docker-compose.test.yml run --rm app $@
 }
 
 # Sets up a tmux session based on the current directory
