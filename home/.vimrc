@@ -262,6 +262,7 @@ let g:airline#extensions#default#section_truncate_width = {
 \ }
 let g:airline#extensions#whitespace#enabled=1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', 'ld', 'php', 'scss']
 " }}}
 
 " vim-test {{{
