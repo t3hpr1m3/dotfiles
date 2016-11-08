@@ -35,12 +35,12 @@ function tdev {
 	if [[ -z $1 ]]; then
 		name=${PWD##*/}
 	fi
-	tmux -v new -s "$name" -n code -d
-	tmux -v split-window -t "$name" -v -p 20
-	tmux -v split-window -t "$name" -h -p 50
-	tmux -v select-pane -t "$name":0.0
-	tmux -v send-keys -t "$name" "vim" C-m
-	TMUX= tmux -v attach-session -t "$name"
+	tmux new -s "$name" -n code -d
+	tmux split-window -t "$name" -v -p 20
+	tmux split-window -t "$name" -h -p 50
+	tmux select-pane -t "$name":0.0
+	tmux send-keys -t "$name" "vim" C-m
+	TMUX= tmux attach-session -t "$name"
 	sleep 1
 }
 
