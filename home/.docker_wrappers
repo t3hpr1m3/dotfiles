@@ -22,14 +22,14 @@ function _xauth {
 
 	if [[ -z $(command -v xauth) ]]; then
 		echo ""
-	fi
+	else
+		if [[ ! -f /tmp/.${container_name}.xauth ]]; then
+			touch /tmp/.${container_name}.xauth
+			xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.${container_name}.xauth nmerge -
+		fi
 
-	if [[ ! -f /tmp/.${container_name}.xauth ]]; then
-		touch /tmp/.${container_name}.xauth
-		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.${container_name}.xauth nmerge -
+		echo "/tmp/.${container_name}.xauth"
 	fi
-
-	echo "/tmp/.${container_name}.xauth"
 }
 
 #
