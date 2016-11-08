@@ -1,11 +1,95 @@
+#
+# Generate a sensible DISPLAY variable depending on platform.
+#
+function _display {
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		echo "$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}'):0"
+	else
+		echo "$DISPLAY:0"
+	fi
+}
+
+#
+# Setup xauth for running X11 apps inside the container.
+#
+function _xauth {
+	container_name="$1"
+
+	if [[ -z "$container_name" ]]; then
+		echo "container_name cannot be blank."
+		exit 1
+	fi
+
+	if [[ -z $(command -v xauth) ]]; then
+		echo ""
+	fi
+
+	if [[ ! -f /tmp/.${container_name}.xauth ]]; then
+		touch /tmp/.${container_name}.xauth
+		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.${container_name}.xauth nmerge -
+	fi
+
+	echo "/tmp/.${container_name}.xauth"
+}
+
+#
+# Cobble together some default arguments.  Highly opinionated.
+#
+function _default_args {
+	container_name="$1"
+
+	if [[ -z "$container_name" ]]; then
+		echo "container_name cannot be blank."
+		exit 1
+	fi
+
+	args=(--rm -it)
+
+	args+=(--name $container_name)
+
+	echo "${args[@]}"
+}
+
+#
+# Piece together the necessary arguments for running X11 apps inside the
+# container.
+#
+function _x11_args {
+	container_name="$1"
+
+	if [[ -z "$container_name" ]]; then
+		echo "container_name cannot be blank."
+		exit 1
+	fi
+
+	if [[ -d /tmp/.X11-unix ]]; then
+		args+=(-v /tmp/.X11-unix:/tmp/.X11-unix)
+	fi
+
+	XAUTH=$(_xauth "$container_name")
+	if [[ -n "$XAUTH" ]]; then
+		args+=(-v $XAUTH:$XAUTH)
+		args+=(-e XAUTHORITY=$XAUTH)
+	fi
+
+	DISPLAY=$(_display)
+	if [[ -n "$DISPLAY" ]]; then
+		args+=(-e DISPLAY=$DISPLAY)
+	fi
+
+	echo "${args[@]}"
+}
+
+#
+# Common logic for running ansible commands.
+#
 function _ansible_base {
 	ansible_command=$1
 	shift
 
 	docker run \
-		--rm -it \
+		$(_default_args ansible) \
 		-v $(pwd):/usr/src/app \
-		--name ansible \
 		-v $SSH_AUTH_SOCK:/ssh-agent \
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		--tmpfs /tmp \
@@ -27,9 +111,8 @@ function ansible-vault {
 
 function aws {
 	docker run \
-		--rm -it \
+		$(_default_args aws) \
 		-v $HOME/.aws:/root/.aws \
-		--name aws \
 		t3hpr1m3/aws \
 		"$@"
 }
@@ -43,7 +126,7 @@ function bats {
 	code_path=$(dirname $(realpath $test_path))
 
 	docker run \
-		--rm -it \
+		$(_default_args bats) \
 		-v $code_path:/my-code \
 		dduportal/bats:0.4.0 \
 		/my-code/test
@@ -54,14 +137,11 @@ function eclipse {
 		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.eclipse.xauth nmerge -
 	fi
 	docker run \
-		--rm \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v /tmp/.eclipse.xauth:/tmp/.eclipse.xauth \
+		$(_default_args eclipse) \
+		$(_x11_args eclipse) \
 		-v $(pwd):/home/eclipse/workspace \
-		-e XAUTHORITY=/tmp/.eclipse.xauth \
-		-e DISPLAY=unix$DISPLAY \
-		--name eclipse \
-		t3hpr1m3/eclipse:4.5.1
+		jdubz/eclipse:4.5.1 \
+		/bin/bash
 }
 
 function go {
@@ -77,10 +157,8 @@ function go {
 
 		# fire it off
 		docker run \
-			--rm \
-			-t \
+			$(_default_args go) \
 			-v $GOPATH:/go \
-			--name go \
 			jdubz/golang:1.0.0 \
 			$workdir \
 			$1
@@ -91,24 +169,24 @@ function go {
 }
 
 function gradle {
-	if [[ ! -f /tmp/.gradle.xauth ]]; then
-		touch /tmp/.gradle.xauth
-		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.gradle.xauth nmerge -
-	fi
 	if [[ ! -d $(pwd)/.gradle_caches ]]; then
 		mkdir $(pwd)/.gradle_caches
 	fi
 	docker run \
-		--rm \
-		-t \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-v /tmp/.gradle.xauth:/tmp/.gradle.xauth \
+		$(_default_args gradle) \
+		$(_x11_args gradle) \
 		-v $(pwd):/usr/src/app \
 		-v $(pwd)/.gradle_caches:/root/.gradle/caches \
-		-e XAUTHORITY=/tmp/.gradle.xauth \
-		-e DISPLAY=unix$DISPLAY \
-		--name gradle \
 		jdubz/gradle:2.0 "$@"
+}
+
+function virt-manager {
+	docker run \
+		$(_default_args virt-manager) \
+		$(_x11_args virt-manager) \
+		-v virt-manager-volume:/root/.config \
+		jdubz/virt-manager \
+		"$@"
 }
 
 # vim: set ft=sh:
