@@ -94,7 +94,8 @@ function _ansible_base {
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		--tmpfs /tmp \
 		jdubz/ansible \
-		$ansible_command "$@"
+		$ansible_command \
+		"$@"
 }
 
 function ansible {
@@ -119,6 +120,7 @@ function aws {
 
 function bats {
 	test_path=$1
+	shift
 	if [[ -z "$test_path" ]]; then
 		echo "You must supply the path to your tests." >&2
 		exit 1
@@ -129,7 +131,8 @@ function bats {
 		$(_default_args bats) \
 		-v $code_path:/my-code \
 		dduportal/bats:0.4.0 \
-		/my-code/test
+		/my-code/test \
+		"$@"
 }
 function eclipse {
 	if [[ ! -f /tmp/.eclipse.xauth ]]; then
@@ -141,7 +144,7 @@ function eclipse {
 		$(_x11_args eclipse) \
 		-v $(pwd):/home/eclipse/workspace \
 		jdubz/eclipse:4.5.1 \
-		/bin/bash
+		"$@"
 }
 
 function go {
@@ -161,7 +164,7 @@ function go {
 			-v $GOPATH:/go \
 			jdubz/golang:1.0.0 \
 			$workdir \
-			$1
+			"$@"
 	else
 		echo "Current directory not in GOPATH"
 		return 1
@@ -177,7 +180,8 @@ function gradle {
 		$(_x11_args gradle) \
 		-v $(pwd):/usr/src/app \
 		-v $(pwd)/.gradle_caches:/root/.gradle/caches \
-		jdubz/gradle:2.0 "$@"
+		jdubz/gradle:2.0 \
+		"$@"
 }
 
 function virt-manager {
