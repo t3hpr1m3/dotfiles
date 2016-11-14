@@ -35,6 +35,7 @@ function tdev {
 	if [[ -z $1 ]]; then
 		name=${PWD##*/}
 	fi
+	name=$(echo "$name" | sed "s/\./_/g")
 	tmux new -s "$name" -n code -d
 	tmux split-window -t "$name" -v -p 20
 	tmux split-window -t "$name" -h -p 50
