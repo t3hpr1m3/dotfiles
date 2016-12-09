@@ -46,7 +46,7 @@ fi
 #
 # Dalias
 #
-if [ -d $HOME/.dalias ]; then
+if [ -d $HOME/.dalias ] || [ -L $HOME/.dalias ]; then
 	export PATH="$HOME/.dalias/bin:$PATH"
 	eval "$(dalias init)"
 fi
