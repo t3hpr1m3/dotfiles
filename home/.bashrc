@@ -39,6 +39,12 @@ if [[ -f ~/.homesick/repos/homeshick/homeshick.sh ]]; then
 	source ~/.homesick/repos/homeshick/homeshick.sh
 fi
 
+# nvm
+if [ -d "$HOME/.nvm" ]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+fi
+
 # TMUX DISPLAY setting
 if [ -n "$DISPLAY" ]; then
 	if [ $(command -v tmux) ]; then
