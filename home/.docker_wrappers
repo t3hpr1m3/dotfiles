@@ -23,12 +23,14 @@ function _xauth {
 	if [[ -z $(command -v xauth) ]]; then
 		echo ""
 	else
-		if [[ ! -f /tmp/.${container_name}.xauth ]]; then
-			touch /tmp/.${container_name}.xauth
-			xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f /tmp/.${container_name}.xauth nmerge -
+		display=$(echo $DISPLAY | cut -d: -f2)
+		xauth_file="/tmp/.${container_name}.${display}.xauth"
+		if [[ ! -f $xauth_file ]]; then
+			touch $xauth_file
+			xauth nlist :$display | sed -e 's/^..../ffff/' | xauth -f $xauth_file nmerge -
 		fi
 
-		echo "/tmp/.${container_name}.xauth"
+		echo $xauth_file
 	fi
 }
 
@@ -74,8 +76,10 @@ function _x11_args {
 
 	DISPLAY=$(_display)
 	if [[ -n "$DISPLAY" ]]; then
-		args+=(-e DISPLAY=$DISPLAY)
+		args+=(-e DISPLAY)
 	fi
+
+	args+=(--net=host)
 
 	echo "${args[@]}"
 }
