@@ -162,7 +162,8 @@ function go {
 		docker run \
 			$(_default_args go) \
 			-v $GOPATH:/go \
-			jdubz/golang:1.0.0 \
+			--name go \
+			jdubz/golang:1.0.1 \
 			$workdir \
 			"$@"
 	else
@@ -192,5 +193,27 @@ function virt-manager {
 		jdubz/virt-manager \
 		"$@"
 }
+
+# function obs {
+# 	XSOCK=/tmp/.X11-unix
+# 	XAUTH=/tmp/.obs.xauth
+# 	if [[ ! -f "${XAUTH}" ]]; then
+# 		touch "${XAUTH}"
+# 		xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f "${XAUTH}" nmerge-
+# 	fi
+# 		# -e XAUTHORITY=/tmp/.obs.xauth \
+# 	docker run \
+# 		--rm \
+# 		-it \
+# 		-v ${XSOCK}:${XSOCK}:rw \
+# 		-v ${XAUTH}:${XAUTH}:rw \
+# 		-e DISPLAY \
+# 		-e QT_X11_NO_MITSHM=1 \
+# 		-e XAUTHORITY=${XAUTH} \
+# 		--device /dev/dri \
+# 		--name obs \
+# 		jdubz/obs:0.14.2 "$@"
+
+# }
 
 # vim: set ft=sh:
