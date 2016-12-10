@@ -44,6 +44,14 @@ if [ -d $HOME/.rbenv ]; then
 fi
 
 #
+# New node garbage (it will never die)
+#
+if [ -d $HOME/.nvm ]; then
+	export NVM_DIR="/home/josh/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
+
+#
 # Dalias
 #
 if [ -d $HOME/.dalias ] || [ -L $HOME/.dalias ]; then
