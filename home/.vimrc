@@ -23,6 +23,7 @@ Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'moll/vim-node'
 Plugin 'mtth/scratch.vim'
+Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
@@ -287,5 +288,9 @@ let test#ruby#bundle_exec = 0
 " map <Leader>l :call RunLastSpec()<CR>
 " map <Leader>a :call RunAllSpecs()<CR>
 
+" }}}
+
+" vim-jsx {{{
+let g:jsx_ext_required = 0
 " }}}
 " }}}
