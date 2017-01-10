@@ -162,12 +162,16 @@ function go {
 		# make the path relative so it can be resolved in the container
 		workdir="${PWD/#$GOPATH/}"
 
+		if [[ -z "$workdir" ]]; then
+			workdir="."
+		fi
+
 		# fire it off
 		docker run \
 			$(_default_args go) \
 			-v $GOPATH:/go \
 			--name go \
-			jdubz/golang:1.0.1 \
+			jdubz/golang:1.5.1 \
 			$workdir \
 			"$@"
 	else
