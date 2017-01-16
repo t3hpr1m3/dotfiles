@@ -193,6 +193,15 @@ function gradle {
 		"$@"
 }
 
+function terraform {
+	docker run \
+		$(_default_args terraform) \
+		-v $(pwd):/usr/src/app \
+		jdubz/terraform:0.8.4 \
+		"$@"
+
+}
+
 function virt-manager {
 	docker run \
 		$(_default_args virt-manager) \
