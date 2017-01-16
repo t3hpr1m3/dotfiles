@@ -97,7 +97,7 @@ function _ansible_base {
 		-v $SSH_AUTH_SOCK:/ssh-agent \
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		--tmpfs /tmp \
-		jdubz/ansible \
+		jdubz/ansible:2.2.1.0 \
 		$ansible_command \
 		"$@"
 }
