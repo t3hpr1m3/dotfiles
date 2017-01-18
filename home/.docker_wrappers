@@ -95,9 +95,10 @@ function _ansible_base {
 		$(_default_args ansible) \
 		-v $(pwd):/usr/src/app \
 		-v $SSH_AUTH_SOCK:/ssh-agent \
+		-v $(pwd)/.aws/credentials:/root/.aws/credentials \
 		-e SSH_AUTH_SOCK=/ssh-agent \
 		--tmpfs /tmp \
-		jdubz/ansible:2.2.1.0 \
+		jdubz/ansible:2.2.1.0-r1 \
 		$ansible_command \
 		"$@"
 }
