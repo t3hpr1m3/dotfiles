@@ -103,17 +103,19 @@ function _ansible_base {
 		"$@"
 }
 
-function ansible {
-	_ansible_base ansible "$@"
-}
+# Disabling these until I find a cleaner way to handle things like AWS
+# credentials and nested directories
+# function ansible {
+# 	_ansible_base ansible "$@"
+# }
 
-function ansible-playbook {
-	_ansible_base ansible-playbook "$@"
-}
+# function ansible-playbook {
+# 	_ansible_base ansible-playbook "$@"
+# }
 
-function ansible-vault {
-	_ansible_base ansible-vault "$@"
-}
+# function ansible-vault {
+# 	_ansible_base ansible-vault "$@"
+# }
 
 function aws {
 	docker run \
@@ -194,14 +196,14 @@ function gradle {
 		"$@"
 }
 
-function terraform {
-	docker run \
-		$(_default_args terraform) \
-		-v $(pwd):/usr/src/app \
-		jdubz/terraform:0.8.4 \
-		"$@"
-
-}
+# Doesn't really work well with nested inventories
+# function terraform {
+# 	docker run \
+# 		$(_default_args terraform) \
+# 		-v $(pwd):/usr/src/app \
+# 		jdubz/terraform:0.8.4 \
+# 		"$@"
+# }
 
 function virt-manager {
 	docker run \
