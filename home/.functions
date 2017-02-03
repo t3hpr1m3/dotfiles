@@ -26,7 +26,15 @@ function dra {
 }
 
 function drat {
-	docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm app $@
+	docker-compose -f docker-compose.test.yml run --rm app $@
+}
+
+function dcp {
+	docker-compose -f docker-compose.yml $@
+}
+
+function dct {
+	docker-compose -f docker-compose.test.yml $@
 }
 
 # Sets up a tmux session based on the current directory
