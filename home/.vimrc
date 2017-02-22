@@ -184,6 +184,11 @@ augroup ft_python
 	au FileType python set ai ts=8 sw=8 sts=8 noet
 augroup END
 
+augroup ft_terraform
+	au!
+	au FileType terraform set ai ts=4 sts=4 sw=4 noet
+augroup END
+
 augroup ft_go
 	au!
 	au FileType go nmap <leader>r <Plug>(go-run)
