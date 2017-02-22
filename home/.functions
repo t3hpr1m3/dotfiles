@@ -45,10 +45,10 @@ function tdev {
 	fi
 	name=$(echo "$name" | sed "s/\./_/g")
 	tmux new -s "$name" -n code -d
-	tmux split-window -t "$name" -v -p 20
-	tmux split-window -t "$name" -h -p 50
+	tmux split-window -t "$name":0.0 -v -p 20
+	tmux split-window -t "$name":0.1 -h -p 50
+	tmux send-keys -t "$name":0.0 "vim" C-m
 	tmux select-pane -t "$name":0.0
-	tmux send-keys -t "$name" "vim" C-m
 	TMUX= tmux attach-session -t "$name"
 	sleep 1
 }
