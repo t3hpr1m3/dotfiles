@@ -33,6 +33,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'slim-template/vim-slim'
 Plugin 'tomtom/tinykeymap_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-commentary'
@@ -165,6 +166,8 @@ augroup ft_ruby
 	au!
 	au FileType ruby setlocal foldmethod=syntax
 	au FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
+	au BufNewFile,BufRead *.mobile.erb let b:eruby_subtype='html'
+	au BufNewFile,BufRead *.mobile.erb set filetype=eruby
 augroup END
 
 augroup ft_css

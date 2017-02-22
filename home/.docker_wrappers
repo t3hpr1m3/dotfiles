@@ -121,7 +121,7 @@ function aws {
 	docker run \
 		$(_default_args aws) \
 		-v $HOME/.aws:/root/.aws \
-		jdubz/aws:1.11.47 \
+		jdubz/awscli:1.11.47 \
 		"$@"
 }
 
