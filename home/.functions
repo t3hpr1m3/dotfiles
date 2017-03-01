@@ -47,7 +47,7 @@ function tdev {
 	tmux new -s "$name" -n code -d
 	tmux split-window -t "$name":0.0 -v -p 20
 	tmux split-window -t "$name":0.1 -h -p 50
-	tmux send-keys -t "$name":0.0 "vim" C-m
+	tmux send-keys -t "$name":0.0 "nvim" C-m
 	tmux select-pane -t "$name":0.0
 	TMUX= tmux attach-session -t "$name"
 	sleep 1
