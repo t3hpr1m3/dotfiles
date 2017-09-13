@@ -39,8 +39,8 @@ fi
 # Old ruby garbage (will this ever die?)
 #
 if [ -d $HOME/.rbenv ]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
-    eval "$(rbenv init -)"
+	export PATH="$HOME/.rbenv/bin:$PATH"
+	eval "$(rbenv init -)"
 fi
 
 #
@@ -91,6 +91,10 @@ if [ -h $HOME/.ssh/ssh_auth_sock ]; then
 fi
 
 load_keys
+
+if [ $(command -v i3-sensible-terminal) ]; then
+	export TERMINAL=xterm
+fi
 
 #
 # Now, source the juicy bits
