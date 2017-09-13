@@ -39,13 +39,23 @@ Xfg.autohint: 0
 
 *ttyModes: erase ^?
 
-XTerm*faceName: Droid Sans Mono for Powerline
+! XTerm*faceName: Droid Sans Mono for Powerline
+XTerm*faceName: Source Code Pro for Powerline
 XTerm*boldMode: false
 XTerm*colorBDMode: true
 XTerm*colorBD: rgb:fc/fc/fc
 XTerm*iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
 XTerm*selectToClipboard: true
 XTerm*metaSendsEscape: true
+
+! XTerm*faceName: Droid Sans Mono for Powerline
+UXTerm*faceName: Source Code Pro for Powerline
+UXTerm*boldMode: false
+UXTerm*colorBDMode: true
+UXTerm*colorBD: rgb:fc/fc/fc
+UXTerm*iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
+UXTerm*selectToClipboard: true
+UXTerm*metaSendsEscape: true
 
 rofi.color-enabled: true
 rofi.separator-style: solid
