@@ -30,7 +30,11 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Shougo/neocomplete.vim'
+if has('nvim')
+	Plugin 'Shougo/deoplete.nvim'
+else
+	Plugin 'Shougo/neocomplete.vim'
+endif
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'slim-template/vim-slim'
@@ -233,6 +237,20 @@ if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" }}}
+
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#sources#syntax#min_keyword_length = 3
+let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+let g:deoplete#sources#dictionary#dictionaries = {
+	\ 'default' : '',
+	\ }
+if !exists('g:deoplete#keyword_patterns')
+	let g:deoplete#keyword_patterns = {}
+endif
+let g:deoplete#keyword_patterns['default'] = '\h\w*'
 " }}}
 
 " neosnippet {{{
