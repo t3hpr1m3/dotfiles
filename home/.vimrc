@@ -127,6 +127,10 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+if has('nvim')
+	noremap <BS> <C-w>h
+endif
+
 map <Leader>ar :AirlineRefresh<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
