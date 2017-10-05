@@ -12,6 +12,7 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
+Plugin 'chr4/nginx.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ekalinin/Dockerfile.vim'
