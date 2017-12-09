@@ -12,12 +12,15 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'chriskempson/base16-vim'
+Plugin 'chr4/nginx.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'Glench/Vim-Jinja2-Syntax'
 Plugin 'hashivim/vim-terraform'
 Plugin 'janko-m/vim-test'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'mattn/webapi-vim'
@@ -28,10 +31,16 @@ Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'rking/ag.vim'
+Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Shougo/neocomplete.vim'
+if has('nvim')
+	Plugin 'Shougo/deoplete.nvim'
+else
+	Plugin 'Shougo/neocomplete.vim'
+endif
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'slim-template/vim-slim'
 Plugin 'tomtom/tinykeymap_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-commentary'
@@ -118,6 +127,10 @@ noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
+if has('nvim')
+	noremap <BS> <C-w>h
+endif
+
 map <Leader>ar :AirlineRefresh<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nmap <F3> :NERDTreeToggle<CR>
@@ -164,6 +177,8 @@ augroup ft_ruby
 	au!
 	au FileType ruby setlocal foldmethod=syntax
 	au FileType ruby,eruby,yaml set ai ts=2 sw=2 sts=2 et
+	au BufNewFile,BufRead *.mobile.erb let b:eruby_subtype='html'
+	au BufNewFile,BufRead *.mobile.erb set filetype=eruby
 augroup END
 
 augroup ft_css
@@ -174,7 +189,8 @@ augroup END
 augroup ft_javascript
 	au!
 	au FileType javascript setlocal foldenable|setlocal foldmethod=syntax|setlocal foldlevel=2
-	au FileType javascript,jade set ai ts=2 sw=2 sts=2 et
+	au FileType jade set ai ts=2 sw=2 sts=2 et
+	au FileType javascript set ai ts=4 sw=4 sts=4 noet
 augroup END
 
 augroup ft_python
@@ -183,12 +199,18 @@ augroup ft_python
 	au FileType python set ai ts=8 sw=8 sts=8 noet
 augroup END
 
+augroup ft_terraform
+	au!
+	au FileType terraform set ai ts=4 sts=4 sw=4 noet
+augroup END
+
 augroup ft_go
 	au!
 	au FileType go nmap <leader>r <Plug>(go-run)
 	au FileType go nmap <leader>b <Plug>(go-build)
 	au FileType go nmap <leader>t <Plug>(go-test)
 	au FileType go nmap <leader>c <Plug>(go-coverage)
+augroup END
 " }}}
 
 " Formatting ---------- {{{
@@ -223,6 +245,20 @@ if !exists('g:neocomplete#keyword_patterns')
 	let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" }}}
+
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#sources#syntax#min_keyword_length = 3
+let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+let g:deoplete#sources#dictionary#dictionaries = {
+	\ 'default' : '',
+	\ }
+if !exists('g:deoplete#keyword_patterns')
+	let g:deoplete#keyword_patterns = {}
+endif
+let g:deoplete#keyword_patterns['default'] = '\h\w*'
 " }}}
 
 " neosnippet {{{
