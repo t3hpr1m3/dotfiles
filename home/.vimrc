@@ -35,6 +35,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 if has('nvim')
 	Plugin 'Shougo/deoplete.nvim'
+	Plugin 'radenling/vim-dispatch-neovim'
 else
 	Plugin 'Shougo/neocomplete.vim'
 endif
