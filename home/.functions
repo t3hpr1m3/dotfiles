@@ -21,6 +21,14 @@ function cds {
 	fi
 }
 
+function dcr {
+	docker-compose run --rm $@
+}
+
+function dcrt {
+	docker-compose -f docker-compose.test.yml run --rm $@
+}
+
 function dra {
 	docker-compose run --rm app $@
 }
