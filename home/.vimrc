@@ -312,7 +312,7 @@ nmap <silent> <leader>s :TestNearest<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 let test#strategy = "dispatch"
-let test#ruby#bundle_exec = 0
+let test#ruby#bundle_exec = 1
 let test#elixir#exunit#executable = "mixt"
 let g:dispatch_compilers = {}
 let g:dispatch_compilers['mixt'] = 'exunit'
