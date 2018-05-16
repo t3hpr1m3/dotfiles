@@ -154,6 +154,18 @@ function eclipse {
 		"$@"
 }
 
+function elixirdev {
+	elixir_version="$1"
+	elixir_command="$2"
+	shift 2
+	docker run \
+		$(_default_args elixir_dev) \
+		-v $(pwd):/usr/src/app \
+		jdubz/elixir-dev:$elixir_version \
+		"$elixir_command" \
+		"$@"
+}
+
 function go {
 	if [[ -z "$GOPATH" ]]; then
 		echo "GOPATH must be set"
