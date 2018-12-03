@@ -315,9 +315,11 @@ nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 let test#strategy = "dispatch"
 let test#ruby#bundle_exec = 1
-let test#elixir#exunit#executable = "mixt"
 let g:dispatch_compilers = {}
-let g:dispatch_compilers['mixt'] = 'exunit'
+if filereadable(fnamemodify('docker-compose.test.yml', ':p'))
+	let test#elixir#exunit#executable = "mixt"
+	let g:dispatch_compilers['mixt'] = 'exunit'
+endif
 
 " if filereadable(fnamemodify('docker-compose.yml', ':p'))
 " 	let test#ruby#rspec#executable = "docker-compose run app rspec"
