@@ -31,6 +31,7 @@ Plugin 'mtth/scratch.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'pearofducks/ansible-vim'
+Plugin 'posva/vim-vue'
 Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
@@ -192,7 +193,7 @@ augroup ft_javascript
 	au!
 	au FileType javascript setlocal foldenable|setlocal foldmethod=syntax|setlocal foldlevel=2
 	au FileType jade set ai ts=2 sw=2 sts=2 et
-	au FileType javascript set ai ts=4 sw=4 sts=4 noet
+	au FileType javascript set ai ts=2 sw=2 sts=2 et
 augroup END
 
 augroup ft_python
