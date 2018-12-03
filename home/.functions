@@ -34,7 +34,7 @@ function dra {
 }
 
 function drat {
-	docker-compose -f docker-compose.test.yml run --rm test_app $@
+	docker-compose -f docker-compose.test.yml run --rm testapp $@
 }
 
 function dcp {
