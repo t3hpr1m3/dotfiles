@@ -45,6 +45,10 @@ function dct {
 	docker-compose -f docker-compose.test.yml $@
 }
 
+function gp {
+	grep -rn --color=always $@ | less -R
+}
+
 # Sets up a tmux session based on the current directory
 function tdev {
 	name=$1
