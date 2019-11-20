@@ -63,6 +63,13 @@ if [ -f $HOME/.gopath ]; then
 fi
 
 #
+# Python virtualenv
+#
+if [ -d $HOME/.local/bin ] || [ -L $HOME/.local/bin ]; then
+	export PATH="$HOME/.local/bin:$PATH"
+fi
+
+#
 # docker-machine
 #
 if [ $(command -v docker-machine) ]; then
