@@ -73,7 +73,7 @@ function parse_git_branch {
 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)] /"
 }
 
-function get_git_status {
+function get_git_status_old {
 	branch=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
 	if [[ -z $branch ]]; then
 		echo ""
@@ -88,6 +88,33 @@ function get_git_status {
 		fi
 		echo -e "\001\033[1;32m\002[\001\033[0m\003$pre$branch$post\001\033[1;32m\002] \001\033[0m\002"
 	fi
+}
+
+function get_git_status {
+	branch=$(git symbolic-ref HEAD --short 2> /dev/null)
+	if [[ -z $branch ]]; then
+		echo ""
+	else
+		green="\x01\e[32m\x02"
+		yellow="\x01\e[33m\x02"
+		pre=""
+		post=""
+		if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]]; then
+			pre="$yellow"
+			post="*"
+		else
+			pre="$green"
+		fi
+		echo -e "\001\033[1;32m\002[\001\033[0m\003$pre$branch$post\001\033[1;32m\002] \001\033[0m\002"
+	fi
+}
+
+function reexport_ps1 {
+	export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h $(get_git_status2)\[\033[0m\]-> \[\033[0m\]"
+}
+
+function reexport_ps1_default {
+	export PS1="\[\033[37m\]\w\n\[\033[31m\]\u@\h \$(get_git_status)\[\033[0m\]-> \[\033[0m\]"
 }
 
 function abspath {
