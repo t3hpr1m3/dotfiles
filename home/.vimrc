@@ -31,6 +31,7 @@ Plugin 'mtth/scratch.vim'
 Plugin 'mxw/vim-jsx'
 Plugin 'pangloss/vim-javascript'
 Plugin 'pearofducks/ansible-vim'
+Plugin 'pedrohdz/vim-yaml-folds'
 Plugin 'posva/vim-vue'
 Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
@@ -144,6 +145,8 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 noremap <Leader>. :Ag<Space>
 
+nnoremap <C-W>M <C-W>\|<C-W>_
+nnoremap <C-W>m <C-W>=
 
 " Searching and cursor movement{{{
 nnoremap / /\v
