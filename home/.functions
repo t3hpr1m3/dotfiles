@@ -95,8 +95,8 @@ function get_git_status {
 	if [[ -z $branch ]]; then
 		echo ""
 	else
-		green="\x01\e[32m\x02"
-		yellow="\x01\e[33m\x02"
+		green="\x01\x1b[32m\x02"
+		yellow="\x01\x1b[33m\x02"
 		pre=""
 		post=""
 		if [[ $(git status --porcelain 2> /dev/null | tail -n1) != "" ]]; then
