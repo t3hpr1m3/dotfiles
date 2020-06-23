@@ -24,6 +24,7 @@ Plugin 'janko-m/vim-test'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
+Plugin 'leafOfTree/vim-vue-plugin'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
 Plugin 'moll/vim-node'
@@ -217,6 +218,12 @@ augroup ft_go
 	au FileType go nmap <leader>t <Plug>(go-test)
 	au FileType go nmap <leader>c <Plug>(go-coverage)
 augroup END
+
+augroup ft_vue
+	au!
+	au BufNewFile,BufFilePre,BufRead *.vue set filetype=vue
+	au FileType vue set ts=2 sts=2 sw=2 et
+augroup END
 " }}}
 
 " Formatting ---------- {{{
@@ -255,17 +262,6 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#sources#syntax#min_keyword_length = 3
-let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
-let g:deoplete#sources#dictionary#dictionaries = {
-	\ 'default' : '',
-	\ }
-if !exists('g:deoplete#keyword_patterns')
-	let g:deoplete#keyword_patterns = {}
-endif
-let g:deoplete#keyword_patterns['default'] = '\h\w*'
-" }}}
 
 " neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
