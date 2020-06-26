@@ -217,6 +217,7 @@ augroup ft_go
 	au FileType go nmap <leader>b <Plug>(go-build)
 	au FileType go nmap <leader>t <Plug>(go-test)
 	au FileType go nmap <leader>c <Plug>(go-coverage)
+	au FileType go set ts=4 sts=4 sw=4 noet
 augroup END
 
 augroup ft_vue
@@ -337,5 +338,18 @@ endif
 
 " vim-jsx {{{
 let g:jsx_ext_required = 0
+" }}}
+" vim-go {{{
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+"let g:go_debug=['lsp']
 " }}}
 " }}}
