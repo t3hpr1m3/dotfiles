@@ -25,24 +25,12 @@ function dcr {
 	docker-compose run --rm $@
 }
 
-function dcrt {
-	docker-compose -f docker-compose.test.yml run --rm $@
+function dcu {
+  docker-compose up $@
 }
 
-function dra {
-	docker-compose run --rm app $@
-}
-
-function drat {
-	docker-compose -f docker-compose.test.yml run --rm testapp $@
-}
-
-function dcp {
-	docker-compose -f docker-compose.yml $@
-}
-
-function dct {
-	docker-compose -f docker-compose.test.yml $@
+function dcub {
+  docker-compose up -d $@
 }
 
 function gp {
