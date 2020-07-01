@@ -49,7 +49,9 @@ Plugin 'slim-template/vim-slim'
 Plugin 'tomtom/tinykeymap_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-dispatch'
+if !has('nvim')
+  Plugin 'tpope/vim-dispatch'
+endif
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
@@ -315,31 +317,24 @@ let airline#extensions#c_like_langs = ['c', 'cpp', 'cuda', 'go', 'javascript', '
 nmap <silent> <leader>s :TestNearest<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
-let test#strategy = "dispatch"
-let test#ruby#bundle_exec = 1
-let test#ruby#use_spring_binstub = 1
-let g:dispatch_compilers = {}
-if filereadable(fnamemodify('docker-compose.yml', ':p'))
-  let test#ruby#bundle_exec = 0
-  let test#ruby#use_spring_binstub = 0
+
+if has('nvim')
+  let test#strategy = "neovim"
+else
+  let test#strategy = "dispatch"
 endif
+
 " function! DockerComposeTransform(cmd) abort
-" 	return 'docker-compose exec spring ' . a:cmd
+" 	if a:cmd =~# '\./bin/rspec.*'
+" 		return 'docker-compose exec spring ' . a:cmd
+" 	else
+" 		return a:cmd
+" 	end
 " endfunction
 
 " if filereadable(fnamemodify('docker-compose.yml', ':p'))
 " 	let g:test#custom_transformations = {'dockercompose': function('DockerComposeTransform')}
 " 	let g:test#transformation = 'dockercompose'
-" endif
-" if filereadable(fnamemodify('docker-compose.test.yml', ':p'))
-" 	let test#elixir#exunit#executable = "mixt"
-" 	let g:dispatch_compilers['mixt'] = 'exunit'
-" endif
-
-" if filereadable(fnamemodify('docker-compose.yml', ':p'))
-" 	let test#ruby#rspec#executable = "docker-compose run test rspec"
-" 	let test#javascript#mocha#executable = "docker-compose run test mocha"
-" 	let test#elixir#exunit#executable = "docker-compose run test mix test"
 " endif
 " }}}
 
