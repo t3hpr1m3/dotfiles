@@ -166,34 +166,34 @@ function elixirdev {
 		"$@"
 }
 
-#function go {
-#	if [[ -z "$GOPATH" ]]; then
-#		echo "GOPATH must be set"
-#		return 1
-#	fi
-#
-#	# Make sure the current directory is somewhere inside GOPATH
-#	if [[ "$(pwd)" == "$GOPATH"* ]]; then
-#		# make the path relative so it can be resolved in the container
-#		workdir="${PWD/#$GOPATH/}"
-#
-#		if [[ -z "$workdir" ]]; then
-#			workdir="."
-#		fi
-#
-#		# fire it off
-#		docker run \
-#			$(_default_args go) \
-#			-v $GOPATH:/go \
-#			--name go \
-#			jdubz/golang:1.5.1 \
-#			$workdir \
-#			"$@"
-#	else
-#		echo "Current directory not in GOPATH"
-#		return 1
-#	fi
-#}
+# function go {
+# 	if [[ -z "$GOPATH" ]]; then
+# 		echo "GOPATH must be set"
+# 		return 1
+# 	fi
+
+# 	# Make sure the current directory is somewhere inside GOPATH
+# 	if [[ "$(pwd)" == "$GOPATH"* ]]; then
+# 		# make the path relative so it can be resolved in the container
+# 		workdir="${PWD/#$GOPATH/}"
+
+# 		if [[ -z "$workdir" ]]; then
+# 			workdir="."
+# 		fi
+
+# 		# fire it off
+# 		docker run \
+# 			$(_default_args go) \
+# 			-v $GOPATH:/go \
+# 			--name go \
+# 			jdubz/golang:1.5.1 \
+# 			$workdir \
+# 			"$@"
+# 	else
+# 		echo "Current directory not in GOPATH"
+# 		return 1
+# 	fi
+# }
 
 function gradle {
 	if [[ ! -d $(pwd)/.gradle_caches ]]; then
