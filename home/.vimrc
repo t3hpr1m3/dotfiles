@@ -229,7 +229,9 @@ augroup END
 " Formatting ---------- {{{
 set mouse+=a
 if &term =~ '^screen'
-	set ttymouse=xterm2
+	if !has('nvim')
+		set ttymouse=xterm2
+	endif
 endif
 
 set statusline=[%n]\ %f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%{fugitive#statusline()}%=%c,%l/%L\ %P
