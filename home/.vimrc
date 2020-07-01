@@ -317,16 +317,29 @@ nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 let test#strategy = "dispatch"
 let test#ruby#bundle_exec = 1
+let test#ruby#use_spring_binstub = 1
 let g:dispatch_compilers = {}
-if filereadable(fnamemodify('docker-compose.test.yml', ':p'))
-	let test#elixir#exunit#executable = "mixt"
-	let g:dispatch_compilers['mixt'] = 'exunit'
+if filereadable(fnamemodify('docker-compose.yml', ':p'))
+  let test#ruby#bundle_exec = 0
+  let test#ruby#use_spring_binstub = 0
 endif
+" function! DockerComposeTransform(cmd) abort
+" 	return 'docker-compose exec spring ' . a:cmd
+" endfunction
 
 " if filereadable(fnamemodify('docker-compose.yml', ':p'))
-" 	let test#ruby#rspec#executable = "docker-compose run app rspec"
-" 	let test#javascript#mocha#executable = "docker-compose run app mocha"
-" 	let test#elixir#exunit#executable = "docker-compose run app mix test"
+" 	let g:test#custom_transformations = {'dockercompose': function('DockerComposeTransform')}
+" 	let g:test#transformation = 'dockercompose'
+" endif
+" if filereadable(fnamemodify('docker-compose.test.yml', ':p'))
+" 	let test#elixir#exunit#executable = "mixt"
+" 	let g:dispatch_compilers['mixt'] = 'exunit'
+" endif
+
+" if filereadable(fnamemodify('docker-compose.yml', ':p'))
+" 	let test#ruby#rspec#executable = "docker-compose run test rspec"
+" 	let test#javascript#mocha#executable = "docker-compose run test mocha"
+" 	let test#elixir#exunit#executable = "docker-compose run test mix test"
 " endif
 " }}}
 

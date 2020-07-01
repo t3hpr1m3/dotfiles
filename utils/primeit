@@ -117,7 +117,7 @@ if [ -d "${TARGET_DIR}/.homesick/repos/homeshick" ]; then
 	printf " = HOMESHICK already installed\n"
 else
 	printf " - DOWNLOADING HOMESHICK\n"
-	git clone git://github.com/andsens/homeshick.git "${TARGET_DIR}/.homesick/repos/homeshick"
+	git clone https://github.com/andsens/homeshick.git "${TARGET_DIR}/.homesick/repos/homeshick"
 fi
 
 #
@@ -127,7 +127,7 @@ if [ -d "${TARGET_DIR}/.dalias" ]; then
 	printf " = DALIAS already installed\n"
 else
 	printf " - DOWNLOADING DALIAS\n"
-	git clone git@github.com:t3hpr1m3/dalias.git "${TARGET_DIR}/.dalias"
+	git clone https://github.com/t3hpr1m3/dalias.git "${TARGET_DIR}/.dalias"
 fi
 
 #
