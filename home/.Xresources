@@ -37,12 +37,12 @@ Xfg.autohint: 0
 ! #include ".xthemes/base16-tomorrow.dark.xresources"
 #include ".xthemes/base16-twilight.dark.xresources"
 
-*VT100.Translations: #override \
-		<Key>BackSpace: string(0x7f)\n\
-		<Key>Delete:    string("\033[3~")\n\
-		<Key>Home:      string("\033[1~")\n\
-		<Key>End:       string("\033[4~")
-*ttyModes: erase ^?
+!*VT100.Translations: #override \
+!		<Key>BackSpace: string(0x7f)\n\
+!		<Key>Delete:    string("\033[3~")\n\
+!		<Key>Home:      string("\033[1~")\n\
+!		<Key>End:       string("\033[4~")
+!*ttyModes: erase ^?
 
 ! XTerm*faceName: Droid Sans Mono for Powerline
 XTerm*faceName: Source Code Pro for Powerline
@@ -52,6 +52,7 @@ XTerm*colorBD: rgb:fc/fc/fc
 XTerm*iconHint: /home/josh/.local/share/pixmaps/terminal.xpm
 XTerm*selectToClipboard: true
 XTerm*metaSendsEscape: true
+XTerm*termName: xterm-256color
 
 ! XTerm*faceName: Droid Sans Mono for Powerline
 UXTerm*faceName: Source Code Pro for Powerline

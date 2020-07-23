@@ -215,11 +215,16 @@ augroup END
 
 augroup ft_go
 	au!
-	au FileType go nmap <leader>r <Plug>(go-run)
-	au FileType go nmap <leader>b <Plug>(go-build)
-	au FileType go nmap <leader>t <Plug>(go-test)
-	au FileType go nmap <leader>c <Plug>(go-coverage)
-	au FileType go set ts=4 sts=4 sw=4 noet
+	" au FileType go nmap <leader>r <Plug>(go-run)
+	" au FileType go nmap <leader>b <Plug>(go-build)
+	" au FileType go nmap <leader>t <Plug>(go-test)
+	" au FileType go nmap <leader>c <Plug>(go-coverage)
+	au FileType go setlocal foldmethod=syntax
+	au FileType go setlocal ts=4 sts=4 sw=4 noet
+	" au FileType go nnoremap <silent> <leader>s <Plug>(go-test-func)
+	" au FileType go nnoremap <silent> <leader>a <Plug>(go-test)
+	" au FileType go nnoremap <leader>s <Plug>(go-test-func)
+	au FileType go nmap <leader>a <Plug>(go-test)
 augroup END
 
 augroup ft_vue
@@ -360,6 +365,8 @@ let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
+let g:go_fmt_command = 'goimports'
+let g:go_addtags_transform = 'camelcase'
 "let g:go_debug=['lsp']
 " }}}
 " }}}

@@ -119,4 +119,6 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
+stty erase '^?'
+
 # vim: set ft=sh
