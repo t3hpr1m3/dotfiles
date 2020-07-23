@@ -14,7 +14,7 @@ unset file
 local256="$COLORTERM$XTERM_VERSION$ROXTERM_ID$KONSOLE_DBUS_SESSION"
 if [ -n "$local256" ]; then
 	case "$TERM" in
-		'xterm' | 'xfce4-terminal') TERM=xterm-256color;;
+		'xfce4-terminal') TERM=xterm-256color;;
 		'screen') TERM=screen-256color;;
 		'Eterm') TERM=Eterm-256color;;
 	esac
