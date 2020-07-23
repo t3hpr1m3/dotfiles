@@ -39,7 +39,6 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 if has('nvim')
 	Plugin 'Shougo/deoplete.nvim'
-	Plugin 'radenling/vim-dispatch-neovim'
 else
 	Plugin 'Shougo/neocomplete.vim'
 endif
@@ -49,9 +48,7 @@ Plugin 'slim-template/vim-slim'
 Plugin 'tomtom/tinykeymap_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-commentary'
-if !has('nvim')
-  Plugin 'tpope/vim-dispatch'
-endif
+Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-surround'
@@ -332,11 +329,17 @@ nmap <silent> <leader>s :TestNearest<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 
-if has('nvim')
-  let test#strategy = "neovim"
-else
-  let test#strategy = "dispatch"
-endif
+let test#strategy = "dispatch"
+let g:dispatch_compilers = {}
+
+" function XvfbTransform(cmd) abort
+"   return 'xvfb-run -a ' . a:cmd
+" endfunction
+
+" if filereadable(fnamemodify('script/capybara_browser', ':p'))
+"   let g:test#custom_transformations = {'xvfb': function('XvfbTransform')}
+"   let g:test#transformation = 'xvfb'
+" endif
 
 " function! DockerComposeTransform(cmd) abort
 " 	if a:cmd =~# '\./bin/rspec.*'
