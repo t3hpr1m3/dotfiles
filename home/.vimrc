@@ -124,8 +124,17 @@ let mapleader = ","
 let g:mapleader = ","
 
 set background=dark
-silent! colorscheme base16-twilight
-let g:airline_theme='base16_twilight'
+silent! colorscheme base16-eighties
+let g:airline_theme='base16_eighties'
+function! s:base16_customize() abort
+	call Base16hi("CursorLine", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+	call Base16hi("CursorColumn", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+	call Base16hi("ColorColumn", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+endfunction
+augroup on_change_colorschema
+	autocmd!
+	autocmd ColorScheme * call s:base16_customize()
+augroup END
 
 noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
 
