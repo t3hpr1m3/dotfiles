@@ -44,6 +44,15 @@ if [ -d $HOME/.rbenv ]; then
 fi
 
 #
+# Python stuffs
+#
+if [ -d $HOME/.pyenv ]; then
+	export PATH="$HOME/.pyenv/bin:$PATH"
+	eval "$(pyenv init -)"
+	eval "$(pyenv virtualenv-init -)"
+fi
+
+#
 # Dalias
 #
 if [ -d $HOME/.dalias ] || [ -L $HOME/.dalias ]; then
