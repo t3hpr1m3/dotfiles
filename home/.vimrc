@@ -94,6 +94,10 @@ set title
 set linebreak
 set colorcolumn=+1
 
+if has('conceal')
+	set conceallevel=2 concealcursor=i
+endif
+
 
 " Wildmenu stuffs {{{
 set wildmenu
@@ -142,10 +146,10 @@ function! s:base16_customize() abort
 	call Base16hi("DiffChanged", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
 	call Base16hi("DiffText", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
 endfunction
-augroup on_change_colorschema
-	autocmd!
-	autocmd ColorScheme * call s:base16_customize()
-augroup END
+" augroup on_change_colorschema
+" 	autocmd!
+" 	autocmd ColorScheme * call s:base16_customize()
+" augroup END
 if &diff
 	syntax off
 endif
@@ -301,6 +305,7 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
+" }}}
 
 " neosnippet {{{
 imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -315,10 +320,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 	\: "\<TAB>"
 let g:neosnippet#snippets_directory='~/.neosnippets'
 " }}}
-
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
 
 " CTRL-P {{{
 let g:ctrlp_map = '<leader>,'
@@ -378,17 +379,10 @@ let g:dispatch_compilers = {}
 " endif
 " }}}
 
-" vim-spec {{{
-" map <Leader>t :call RunCurrentSpecFile()<CR>
-" map <Leader>s :call RunNearestSpec()<CR>
-" map <Leader>l :call RunLastSpec()<CR>
-" map <Leader>a :call RunAllSpecs()<CR>
-
-" }}}
-
 " vim-jsx {{{
 let g:jsx_ext_required = 0
 " }}}
+
 " vim-go {{{
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
