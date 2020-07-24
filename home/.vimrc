@@ -132,7 +132,7 @@ function! s:base16_customize() abort
 	call Base16hi("SignColumn", g:base16_gui03, g:base16_gui03, g:base16_cterm03, g:base16_cterm05)
 	call Base16hi("GitGutterAdd", g:base16_gui00, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
 	call Base16hi("GitGutterChange", g:base16_gui00, g:base16_gui08, g:base16_cterm00, g:base16_cterm0D)
-	call Base16hi("GitGutterDelete", g:base16_gui03, g:base16_gui06, g:base16_cterm03, g:base16_cterm06)
+	call Base16hi("GitGutterDelete", g:base16_gui03, g:base16_gui06, g:base16_cterm03, g:base16_cterm08)
 	call Base16hi("GitGutterChangeDelete", g:base16_gui03, g:base16_gui06, g:base16_cterm03, g:base16_cterm06)
 	call Base16hi("PMenu", g:base16_gui03, g:base16_gui06, g:base16_cterm00, g:base16_cterm0D)
 	call Base16hi("PMenuSel", g:base16_gui03, g:base16_gui06, g:base16_cterm00, g:base16_cterm01)
