@@ -1,6 +1,6 @@
 g.autohint: 0
 
-! #include ".xthemes/base17-3024-256.Xresources"
+! #include ".xthemes/base16-3024-256.Xresources"
 ! #include ".xthemes/base16-3024.dark.xresources"
 ! #include ".xthemes/base16-3024.Xresources"
 ! #include ".xthemes/base16-apathy-256.Xresources"
@@ -125,7 +125,7 @@ g.autohint: 0
 ! #include ".xthemes/base16-edge-dark.Xresources"
 ! #include ".xthemes/base16-edge-light-256.Xresources"
 ! #include ".xthemes/base16-edge-light.Xresources"
-#include ".xthemes/base16-eighties-256.Xresources"
+! #include ".xthemes/base16-eighties-256.Xresources"
 ! #include ".xthemes/base16-eighties.dark.xresources"
 ! #include ".xthemes/base16-eighties.Xresources"
 ! #include ".xthemes/base16-embers-256.Xresources"
@@ -243,7 +243,7 @@ g.autohint: 0
 ! #include ".xthemes/base16-oceanicnext-256.Xresources"
 ! #include ".xthemes/base16-oceanicnext.Xresources"
 ! #include ".xthemes/base16-ocean.Xresources"
-! #include ".xthemes/base16-onedark-256.Xresources"
+#include ".xthemes/base16-onedark-256.Xresources"
 ! #include ".xthemes/base16-onedark.Xresources"
 ! #include ".xthemes/base16-one-light-256.Xresources"
 ! #include ".xthemes/base16-one-light.Xresources"
