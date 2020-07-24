@@ -38,9 +38,11 @@ Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 if has('nvim')
-	Plugin 'Shougo/deoplete.nvim'
+	Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-	Plugin 'Shougo/neocomplete.vim'
+	Plugin 'Shougo/deoplete.vim'
+	Plugin 'roxma/nvim-yarp'
+	Plugin 'roxma/vim-hug-neovim-rpc'
 endif
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
@@ -114,24 +116,45 @@ set textwidth=80
 set cindent
 set smarttab
 " }}}
-" }}}
 
-" Bindings ------------ {{{
-let mapleader = ","
-let g:mapleader = ","
-
-set background=dark
-silent! colorscheme base16-eighties
-let g:airline_theme='base16_eighties'
+" Colors {{{
+" silent! colorscheme base16-eighties
+" let g:airline_theme='base16_eighties'
+silent! colorscheme base16-onedark
+let g:airline_theme='onedark'
 function! s:base16_customize() abort
-	call Base16hi("CursorLine", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+	" (group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
+	call Base16hi("CursorLine", "", g:base16_gui03, "", "none", "underline", "")
 	call Base16hi("CursorColumn", "", g:base16_gui03, "", g:base16_cterm03, "", "")
 	call Base16hi("ColorColumn", "", g:base16_gui03, "", g:base16_cterm03, "", "")
+	call Base16hi("Folded", g:base16_gui03, g:base16_gui03, g:base16_cterm03, g:base16_cterm05)
+	call Base16hi("LineNr", g:base16_gui03, g:base16_gui03, g:base16_cterm03, g:base16_cterm05)
+	call Base16hi("SignColumn", g:base16_gui03, g:base16_gui03, g:base16_cterm03, g:base16_cterm05)
+	call Base16hi("GitGutterAdd", g:base16_gui00, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
+	call Base16hi("GitGutterChange", g:base16_gui00, g:base16_gui08, g:base16_cterm00, g:base16_cterm0D)
+	call Base16hi("GitGutterDelete", g:base16_gui03, g:base16_gui06, g:base16_cterm03, g:base16_cterm08)
+	call Base16hi("GitGutterChangeDelete", g:base16_gui03, g:base16_gui06, g:base16_cterm03, g:base16_cterm06)
+	call Base16hi("PMenu", g:base16_gui03, g:base16_gui06, g:base16_cterm00, g:base16_cterm0D)
+	call Base16hi("PMenuSel", g:base16_gui03, g:base16_gui06, g:base16_cterm00, g:base16_cterm01)
+	call Base16hi("DiffAdd", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
+	call Base16hi("DiffDelete", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm08)
+	call Base16hi("DiffChange", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm0D)
+	call Base16hi("DiffChanged", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
+	call Base16hi("DiffText", g:base16_gui0B, g:base16_gui01, g:base16_cterm00, g:base16_cterm01)
 endfunction
 augroup on_change_colorschema
 	autocmd!
 	autocmd ColorScheme * call s:base16_customize()
 augroup END
+if &diff
+	syntax off
+endif
+" }}}
+" }}}
+
+" Bindings ------------ {{{
+let mapleader = ","
+let g:mapleader = ","
 
 noremap <silent> <leader><space> :noh<CR>:call clearmatches()<CR>
 
