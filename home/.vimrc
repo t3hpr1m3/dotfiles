@@ -38,9 +38,11 @@ Plugin 'rking/ag.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'scrooloose/nerdtree'
 if has('nvim')
-	Plugin 'Shougo/deoplete.nvim'
+	Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-	Plugin 'Shougo/neocomplete.vim'
+	Plugin 'Shougo/deoplete.vim'
+	Plugin 'roxma/nvim-yarp'
+	Plugin 'roxma/vim-hug-neovim-rpc'
 endif
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
